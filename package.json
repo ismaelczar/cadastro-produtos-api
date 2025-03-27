@@ -24,7 +24,7 @@
   "homepage": "https://github.com/ismaelczar/cadastro-produtos-api#readme",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.21.2"
+    "express": "^4.17.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.23.0",
