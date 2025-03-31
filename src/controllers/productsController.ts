@@ -1,9 +1,10 @@
 import { CreateProductService } from '../services/createProductService';
+import { UpdateProductService } from '../services/updateProductService';
 
 export const getProducts = (req, res) => {
   return res.status(200).json({
     status: 'success',
-    // result: 'result'
+    result: '',
     data: {
       products: 'List products',
     },
@@ -13,8 +14,8 @@ export const getProducts = (req, res) => {
 export const createProduct = (req, res) => {
   try {
     const productData = req.body;
-    const createProduct = new CreateProductService();
-    const { product } = createProduct.execute(productData);
+    const createProductService = new CreateProductService();
+    const { product } = createProductService.execute(productData);
 
     return res.status(201).json({
       status: 'success',
@@ -23,20 +24,31 @@ export const createProduct = (req, res) => {
       },
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(500).json({
       status: 'fail',
       message: error.message,
     });
   }
 };
 
-// export const updateProduct = (req, res) => {
-//   const productData = req.body;
+export const updateProduct = (req, res) => {
+  try {
+    const id = req.params.id;
+    const productData = Object.assign({ id }, req.body);
 
-//   return res.status(200).json({
-//     status: 'sucess',
-//     data: {
-//       product,
-//     },
-//   });
-// };
+    const updateProducService = new UpdateProductService();
+    const { product } = updateProducService.execute(productData);
+
+    return res.status(200).json({
+      status: 'sucess',
+      data: {
+        product: product,
+      },
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: 'fail',
+      message: error.message,
+    });
+  }
+};
