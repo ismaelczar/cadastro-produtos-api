@@ -4,7 +4,7 @@ Esse repositório contém todos os arquivos referentes ao sistema de cadastro de
 
 ## 📦 Desenvolvimento
 
-Para o desenvolvimento desse projeto, está sendo utilizada a Stack PostgreSQL, Express, NodeJS,
+Para o desenvolvimento desse projeto, está sendo utilizada a Stack MongoDB, Express, NodeJS,
 Typescript, e Autenticacao com JWT Tokens.
 
 ## ✒️ Autor
