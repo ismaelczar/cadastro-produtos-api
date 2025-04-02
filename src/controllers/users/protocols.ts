@@ -1,6 +1,8 @@
-import { User } from '../../models/user';
-import { HttpResponse } from '../protocols';
+import { HttpResponse } from '../../@types/httpResponse';
+import { Product } from '../../models/products';
 
-export interface IGetUsersController {
-  hangle(): Promise<HttpResponse<User[]>>;
+export interface IUserController {
+  list(): Promise<HttpResponse<Product[]>>;
+
+  create(): any;
 }

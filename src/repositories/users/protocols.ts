@@ -1,5 +1,5 @@
 import { User } from '../../models/user';
 
-export interface IGetUsersRepository {
+export interface IUsersRepository {
   getUsers(): Promise<User[]>;
 }

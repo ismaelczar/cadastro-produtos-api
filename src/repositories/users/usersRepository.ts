@@ -1,14 +1,14 @@
 import { User } from '../../models/user';
-import { IGetUsersRepository } from './protocols';
+import { IUsersRepository } from './protocols';
 
-export class GetUsersRepository implements IGetUsersRepository {
+export class UserRepository implements IUsersRepository {
   async getUsers(): Promise<User[]> {
     return [
       {
         fristName: 'Ismael',
         lastName: 'Cezar',
         email: 'ismael@gmail.com',
-        password: '123',
+        password: '1234',
       },
     ];
   }
