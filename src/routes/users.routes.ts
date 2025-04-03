@@ -15,3 +15,12 @@ usersRouter.get('/', async (req, res): Promise<any> => {
     data: body,
   });
 });
+
+usersRouter.post('/', (req, res) => {
+  return res.status(201).json({
+    status: 'success',
+    data: {
+      user,
+    },
+  });
+});

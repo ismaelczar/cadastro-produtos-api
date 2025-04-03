@@ -1,8 +1,13 @@
 import { HttpResponse } from '../../@types/httpResponse';
-import { Product } from '../../models/products';
+import { User } from '../../models/user';
 
 export interface IUserController {
-  list(): Promise<HttpResponse<Product[]>>;
+  list(): Promise<HttpResponse<User[]>>;
 
-  create(): any;
+  create({
+    fristName,
+    lastName,
+    email,
+    password,
+  }: User): Promise<HttpResponse<User>>;
 }
