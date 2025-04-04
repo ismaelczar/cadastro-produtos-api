@@ -1,21 +1,25 @@
 import { User } from '../../models/user';
 import { IUsersRepository } from './protocols';
 
+import { getRepository } from 'typeorm';
+
 export class UserRepository implements IUsersRepository {
-  //TODO: Vincular este repositorio ao banco de dados.
-  async getUsers(): Promise<User[]> {
-    return [
-      {
-        fristName: 'Ismael',
-        lastName: 'Cezar',
-        email: 'ismael@gmail.com',
-        password: '1234',
-      },
-    ];
+  //   private ormRepository: Repository<User>; // Repositório do TypeORM
+
+  //   constructor() {
+  //     this.ormRepository = getRepository(User); // Inicializa uma vez
+  //   }
+
+  async findAll(): Promise<User[]> {
+    const ormRepository = getRepository(User);
+
+    return await ormRepository.find();
   }
 
-  async saveUser(userData: User): Promise<User> {
-    const user = userData;
-    await repositorio.save(user);
+  async create(userData: User): Promise<User> {
+    const ormRepository = getRepository(User);
+
+    const user = ormRepository.create(userData);
+    return await ormRepository.save(user);
   }
 }
