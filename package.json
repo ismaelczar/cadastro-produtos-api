@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsup src",
-    "start": "ts-node src/index.ts",
+    "start": "ts-node src/server.ts",
     "migrate:create": "ts-node ./node_modules/typeorm/cli.js migration:create -n",
     "migrate:up": "ts-node ./node_modules/typeorm/cli.js migration:run",
     "migrate:down": "ts-node ./node_modules/typeorm/cli.js migration:revert"
@@ -24,13 +24,16 @@
   "homepage": "https://github.com/ismaelczar/cadastro-produtos-api#readme",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "pg": "^8.14.1",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.2.41"
   },
   "devDependencies": {
     "@eslint/js": "^9.23.0",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.1",
-    "@types/node": "^22.13.13",
+    "@types/node": "^22.14.0",
     "eslint": "^9.23.0",
     "eslint-config-prettier": "^10.1.1",
     "globals": "^16.0.0",
