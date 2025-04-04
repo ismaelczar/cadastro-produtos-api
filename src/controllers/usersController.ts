@@ -20,4 +20,42 @@ export class UsersController {
       };
     }
   }
+
+  async createUser({
+    firstName,
+    lastName,
+    email,
+    password,
+  }: Omit<User, 'id'>): Promise<HttpResponse<User>> {
+    try {
+      const userIndex = await this.userRepository.findByEmail(email);
+      console.log('1');
+
+      if (userIndex) {
+        return {
+          statusCode: 409,
+          body: 'Email is already in use.',
+        };
+      }
+
+      const user = {
+        firstName,
+        lastName,
+        email,
+        password,
+      };
+
+      this.userRepository.create(user);
+
+      return {
+        statusCode: 201,
+        body: user,
+      };
+    } catch (error) {
+      return {
+        statusCode: 500,
+        body: 'Internal server error',
+      };
+    }
+  }
 }

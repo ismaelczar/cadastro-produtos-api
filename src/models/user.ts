@@ -1,9 +1,10 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity('users')
 export class User {
   @PrimaryColumn('uuid')
-  id: string;
+  id?: string;
+
   @Column({ type: 'varchar' })
   firstName: string;
 
@@ -15,4 +16,7 @@ export class User {
 
   @Column({ type: 'varchar' })
   password: string;
+
+  @CreateDateColumn({ type: 'timestamp with time zone' })
+  created_at?: Date;
 }

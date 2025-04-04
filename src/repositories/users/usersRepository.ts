@@ -20,6 +20,18 @@ export class UserRepository implements IUsersRepository {
     const ormRepository = getRepository(User);
 
     const user = ormRepository.create(userData);
-    return await ormRepository.save(user);
+
+    await ormRepository.save(user);
+
+    return user;
+  }
+
+  async findByEmail(email: string): Promise<User | null> {
+    const ormRepository = getRepository(User);
+    const user = ormRepository.findOne({
+      where: { email: email },
+    });
+
+    return user;
   }
 }
