@@ -1,3 +1,4 @@
+import { hash, compare } from 'bcrypt';
 import { HttpResponse } from '../@types/httpResponse';
 import { User } from '../models/user';
 import { IUsersRepository } from '../repositories/users/protocols';
@@ -29,7 +30,6 @@ export class UsersController {
   }: Omit<User, 'id'>): Promise<HttpResponse<User>> {
     try {
       const userIndex = await this.userRepository.findByEmail(email);
-      console.log('1');
 
       if (userIndex) {
         return {
@@ -38,14 +38,18 @@ export class UsersController {
         };
       }
 
+      const hashedPassword = await hash(password, 8);
+
       const user = {
         firstName,
         lastName,
         email,
-        password,
+        password: hashedPassword,
       };
 
       this.userRepository.create(user);
+
+      delete user.password;
 
       return {
         statusCode: 201,
@@ -64,6 +68,7 @@ export class UsersController {
     newPassword: string,
   ): Promise<HttpResponse<User>> {
     try {
+      //TODO: RECEBER A SENHA ATUAL E VERIFICAR SE É VALIDA ANTES DE ATUALIZAR
       const user = await this.userRepository.findById(id);
 
       if (!user) {
