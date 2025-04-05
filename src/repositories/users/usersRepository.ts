@@ -4,16 +4,20 @@ import { IUsersRepository } from './protocols';
 import { getRepository } from 'typeorm';
 
 export class UserRepository implements IUsersRepository {
-  //   private ormRepository: Repository<User>; // Repositório do TypeORM
-
-  //   constructor() {
-  //     this.ormRepository = getRepository(User); // Inicializa uma vez
-  //   }
-
   async findAll(): Promise<User[]> {
     const ormRepository = getRepository(User);
 
     return await ormRepository.find();
+  }
+
+  findById(id: string): Promise<User | null> {
+    const ormRepository = getRepository(User);
+
+    const user = ormRepository.findOne({
+      where: { id: id },
+    });
+
+    return user;
   }
 
   async create(userData: User): Promise<User> {
@@ -33,5 +37,19 @@ export class UserRepository implements IUsersRepository {
     });
 
     return user;
+  }
+
+  async updatePassword(user: User): Promise<User> {
+    const ormRepository = getRepository(User);
+
+    const updatedUser = await ormRepository.save(user);
+
+    return updatedUser;
+  }
+
+  async delete(id: string): Promise<void> {
+    const ormRepository = getRepository(User);
+
+    await ormRepository.delete(id);
   }
 }

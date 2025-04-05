@@ -22,6 +22,30 @@ usersRouter.post('/', async (req, res): Promise<any> => {
 
   return res.status(statusCode).json({
     // status: '',
+    //TODO: Remover a senha do usuário retornado.
+    data: body,
+  });
+});
+
+usersRouter.patch('/:id', async (req, res): Promise<any> => {
+  const { id } = req.params;
+  const { newPassword } = req.body;
+
+  const { body, statusCode } = await usersController.updatePassword(
+    id,
+    newPassword,
+  );
+  return res.status(statusCode).json({
+    data: body,
+  });
+});
+
+usersRouter.delete('/:id', async (req, res): Promise<any> => {
+  const { id } = req.params;
+
+  const { body, statusCode } = await usersController.remove(id);
+
+  return res.status(statusCode).json({
     data: body,
   });
 });
