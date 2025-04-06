@@ -13,7 +13,7 @@ export class AuthenticateUserService {
       if (!user) {
         return {
           statusCode: 401,
-          body: 'Incorrect email comnination.',
+          body: 'Incorrect email/password comnination.',
         };
       }
 
@@ -22,7 +22,7 @@ export class AuthenticateUserService {
       if (!passwordMatched) {
         return {
           statusCode: 401,
-          body: 'Incorrect password comnination.',
+          body: 'Incorrect email/password comnination.',
         };
       }
 
