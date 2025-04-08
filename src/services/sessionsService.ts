@@ -1,4 +1,5 @@
 import { compare } from 'bcrypt';
+import { sign } from 'jsonwebtoken';
 import { IUsersRepository } from '../repositories/users/protocols';
 import { HttpResponse } from '../@types/httpResponse';
 import { User } from '../models/user';
@@ -26,9 +27,16 @@ export class AuthenticateUserService {
         };
       }
 
+      const token = sign({}, 'a11113006a7272e0cfad95952e7e62f3', {
+        subject: user.id,
+        expiresIn: '1d',
+      });
+
+      const userAuthenticate = Object.assign(user, token);
+
       return {
         statusCode: 200,
-        body: user,
+        body: userAuthenticate,
       };
     } catch (error) {
       return {
