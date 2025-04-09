@@ -32,7 +32,12 @@ export class AuthenticateUserService {
         expiresIn: '1d',
       });
 
-      const userAuthenticate = Object.assign(user, token);
+      const userAuthenticate = {
+        ...user,
+        token,
+      };
+
+      delete userAuthenticate.password;
 
       return {
         statusCode: 200,

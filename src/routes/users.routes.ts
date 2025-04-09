@@ -6,6 +6,8 @@ import { ListUsersService } from '../services/listUsersService';
 import { UpdatedPasswordUserService } from '../services/updatedPasswordUserService';
 import { RemoveUserService } from '../services/removeUserService';
 
+import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
+
 export const usersRouter = Router();
 
 const userRepository = new UserRepository();
@@ -22,7 +24,7 @@ const usersController = new UsersController(
   removeUserService,
 );
 
-usersRouter.get('/', async (req, res): Promise<any> => {
+usersRouter.get('/', ensureAuthenticated, async (req, res): Promise<any> => {
   const { body, statusCode } = await usersController.getUsers();
 
   return res.status(statusCode).json({
@@ -39,26 +41,34 @@ usersRouter.post('/', async (req, res): Promise<any> => {
   });
 });
 
-usersRouter.patch('/:id', async (req, res): Promise<any> => {
-  const { id } = req.params;
-  const { password, newPassword } = req.body;
+usersRouter.patch(
+  '/:id',
+  ensureAuthenticated,
+  async (req, res): Promise<any> => {
+    const { id } = req.params;
+    const { password, newPassword } = req.body;
 
-  const { body, statusCode } = await usersController.updatePassword(
-    id,
-    password,
-    newPassword,
-  );
-  return res.status(statusCode).json({
-    data: body,
-  });
-});
+    const { body, statusCode } = await usersController.updatePassword(
+      id,
+      password,
+      newPassword,
+    );
+    return res.status(statusCode).json({
+      data: body,
+    });
+  },
+);
 
-usersRouter.delete('/:id', async (req, res): Promise<any> => {
-  const { id } = req.params;
+usersRouter.delete(
+  '/:id',
+  ensureAuthenticated,
+  async (req, res): Promise<any> => {
+    const { id } = req.params;
 
-  const { body, statusCode } = await usersController.removeUser(id);
+    const { body, statusCode } = await usersController.removeUser(id);
 
-  return res.status(statusCode).json({
-    data: body,
-  });
-});
+    return res.status(statusCode).json({
+      data: body,
+    });
+  },
+);
