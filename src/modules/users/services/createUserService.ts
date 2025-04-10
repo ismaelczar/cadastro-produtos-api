@@ -1,7 +1,7 @@
 import { hash } from 'bcrypt';
-import { HttpResponse } from '../@types/httpResponse';
-import { User } from '../models/user';
-import { IUsersRepository } from '../repositories/users/protocols';
+import { HttpResponse } from '../../../@types/httpResponse';
+import { User } from '../entities/user';
+import { IUsersRepository } from '../repositories/protocols';
 
 export class CreateUserService {
   constructor(private readonly usersRepository: IUsersRepository) {}

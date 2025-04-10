@@ -1,9 +1,9 @@
-import { HttpResponse } from '../@types/httpResponse';
-import { User } from '../models/user';
-import { CreateUserService } from '../services/createUserService';
-import { ListUsersService } from '../services/listUsersService';
-import { RemoveUserService } from '../services/removeUserService';
-import { UpdatedPasswordUserService } from '../services/updatedPasswordUserService';
+import { HttpResponse } from '../../@types/httpResponse';
+import { User } from '../../modules/users/entities/user';
+import { CreateUserService } from '../../modules/users/services/createUserService';
+import { ListUsersService } from '../../modules/users/services/listUsersService';
+import { RemoveUserService } from '../../modules/users/services/removeUserService';
+import { UpdatedPasswordUserService } from '../../modules/users/services/updatedPasswordUserService';
 
 export class UsersController {
   constructor(

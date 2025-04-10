@@ -1,8 +1,8 @@
 import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
-import { IUsersRepository } from '../repositories/users/protocols';
-import { HttpResponse } from '../@types/httpResponse';
-import { User } from '../models/user';
+import { IUsersRepository } from '../repositories/protocols';
+import { HttpResponse } from '../../../@types/httpResponse';
+import { User } from '../entities/user';
 
 export class AuthenticateUserService {
   constructor(private readonly usersRepository: IUsersRepository) {}

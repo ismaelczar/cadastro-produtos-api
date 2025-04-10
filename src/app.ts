@@ -1,10 +1,10 @@
 import express from 'express';
 import cors from 'cors';
 // import { productsRoutes } from './routes/products.routes';
-import { usersRouter } from './routes/users.routes';
+import { usersRouter } from './shared/routes/users.routes';
 
-import './database';
-import { sessionsRouter } from './routes/sessions.routes';
+import './shared/database';
+import { sessionsRouter } from './shared/routes/sessions.routes';
 
 export const app = express();
 
