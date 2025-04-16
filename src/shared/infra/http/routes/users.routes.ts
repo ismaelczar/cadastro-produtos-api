@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import { UsersController } from '../controllers/usersController';
+import { UsersController } from '../infra/http/controllers/usersController';
 import { UserRepository } from '../../modules/users/repositories/usersRepository';
 import { CreateUserService } from '../../modules/users/services/createUserService';
 import { ListUsersService } from '../../modules/users/services/listUsersService';
 import { UpdatedPasswordUserService } from '../../modules/users/services/updatedPasswordUserService';
 import { RemoveUserService } from '../../modules/users/services/removeUserService';
 
-import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
+import { ensureAuthenticated } from '../infra/http/middlewares/ensureAuthenticated';
 
 export const usersRouter = Router();
 

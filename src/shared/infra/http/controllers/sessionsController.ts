@@ -1,7 +1,7 @@
-import { HttpResponse } from '../../@types/httpResponse';
-import { User } from '../../modules/users/entities/user';
+import { HttpResponse } from '../../../../@types/httpResponse';
+import { User } from '../../../../modules/users/infra/typeorm/entities/user';
 
-import { AuthenticateUserService } from '../../modules/users/services/sessionsService';
+import { AuthenticateUserService } from '../../../../modules/users/services/sessionsService';
 
 export class SessionsController {
   constructor(private readonly sessionsService: AuthenticateUserService) {}

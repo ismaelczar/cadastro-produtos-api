@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { UserRepository } from '../../modules/users/repositories/usersRepository';
 import { AuthenticateUserService } from '../../modules/users/services/sessionsService';
-import { SessionsController } from '../controllers/sessionsController';
+import { SessionsController } from '../infra/http/controllers/sessionsController';
 
 export const sessionsRouter = Router();
 

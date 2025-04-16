@@ -1,4 +1,4 @@
-import { User } from '../entities/user';
+import { User } from '../infra/typeorm/entities/user';
 
 export interface IUsersRepository {
   create(user: User): Promise<User>;

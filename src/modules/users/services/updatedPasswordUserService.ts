@@ -1,6 +1,6 @@
 import { compare, hash } from 'bcrypt';
 import { HttpResponse } from '../../../@types/httpResponse';
-import { User } from '../entities/user';
+import { User } from '../infra/typeorm/entities/user';
 import { IUsersRepository } from '../repositories/protocols';
 
 export class UpdatedPasswordUserService {
