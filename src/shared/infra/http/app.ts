@@ -1,9 +1,9 @@
 import express from 'express';
 import cors from 'cors';
-// import { productsRoutes } from './routes/products.routes';
-import { usersRouter } from './routes/users.routes';
 
-import '../typeorm';
+import '@shared/infra/typeorm';
+
+import { usersRouter } from './routes/users.routes';
 import { sessionsRouter } from './routes/sessions.routes';
 
 export const app = express();

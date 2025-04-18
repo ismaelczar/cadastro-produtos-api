@@ -1,4 +1,4 @@
-import { HttpResponse } from '../../../../@types/httpResponse';
+import { HttpResponse } from '../../../../config/httpResponse';
 import { User } from '../../../../modules/users/infra/typeorm/entities/user';
 
 import { AuthenticateUserService } from '../../../../modules/users/services/sessionsService';

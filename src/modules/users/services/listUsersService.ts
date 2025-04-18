@@ -1,4 +1,4 @@
-import { HttpResponse } from '../../../@types/httpResponse';
+import { HttpResponse } from '../../../config/httpResponse';
 import { User } from '../infra/typeorm/entities/user';
 import { IUsersRepository } from '../repositories/protocols';
 

@@ -1,4 +1,4 @@
-import { HttpResponse } from '../../../@types/httpResponse';
+import { HttpResponse } from '../../../config/httpResponse';
 import { IUsersRepository } from '../repositories/protocols';
 
 export class RemoveUserService {

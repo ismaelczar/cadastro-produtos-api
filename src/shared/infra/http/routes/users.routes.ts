@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import { UsersController } from '../infra/http/controllers/usersController';
-import { UserRepository } from '../../modules/users/repositories/usersRepository';
-import { CreateUserService } from '../../modules/users/services/createUserService';
-import { ListUsersService } from '../../modules/users/services/listUsersService';
-import { UpdatedPasswordUserService } from '../../modules/users/services/updatedPasswordUserService';
-import { RemoveUserService } from '../../modules/users/services/removeUserService';
+import { UsersController } from '@shared/infra/http/controllers/usersController';
+import { UserRepository } from '@modules/users/repositories/usersRepository';
+import { CreateUserService } from '@modules/users/services/createUserService';
+import { ListUsersService } from '@modules/users/services/listUsersService';
+import { UpdatedPasswordUserService } from '@modules/users/services/updatedPasswordUserService';
+import { RemoveUserService } from '@modules/users/services/removeUserService';
 
-import { ensureAuthenticated } from '../infra/http/middlewares/ensureAuthenticated';
+import { ensureAuthenticated } from '@modules/users/middlewares/ensureAuthenticated';
 
 export const usersRouter = Router();
 
@@ -24,7 +24,7 @@ const usersController = new UsersController(
   removeUserService,
 );
 
-usersRouter.get('/', ensureAuthenticated, async (req, res): Promise<any> => {
+usersRouter.get('/', async (req, res): Promise<any> => {
   const { body, statusCode } = await usersController.getUsers();
 
   return res.status(statusCode).json({
