@@ -3,34 +3,20 @@ import { Product } from '../infra/typeorm/entities/products';
 import { IProductsRepository } from './protocols';
 
 export class ProductsRepository implements IProductsRepository {
-  //TODO: CRIAR UMA UNICA INSTANCIA DO REPOSITORIO.
   async findAll(): Promise<Product[]> {
-    const ormRepository = getRepository(Product);
-    const products = await ormRepository.find();
-
-    return products;
+    return getRepository(Product).find();
   }
 
   async create(productData: Product): Promise<Product> {
-    const ormRepository = getRepository(Product);
-
-    const product = productData;
-
-    ormRepository.create(productData);
-
-    return product;
+    const product = getRepository(Product).create(productData);
+    return await getRepository(Product).save(product);
   }
 
   async remove(id: string): Promise<void> {
-    const ormRepository = getRepository(Product);
-    await ormRepository.delete(id);
+    await getRepository(Product).delete(id);
   }
 
   async update(product: Partial<Product>): Promise<Product> {
-    const ormRepository = getRepository(Product);
-
-    const updatedProduct = await ormRepository.save(product);
-
-    return updatedProduct;
+    return await getRepository(Product).save(product);
   }
 }
