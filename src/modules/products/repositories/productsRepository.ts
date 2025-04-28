@@ -1,4 +1,4 @@
-import { Product } from '../entities/products';
+import { Product } from '../infra/typeorm/entities/products';
 import { IProductsRepository } from './protocols';
 
 export class ProductsRepository implements IProductsRepository {
