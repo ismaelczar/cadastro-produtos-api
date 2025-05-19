@@ -1,17 +1,18 @@
-// import { Router } from 'express';
-// import { ProductsRepository } from '../../modules/products/repositories/productsRepository';
-// // import { ProductsController } from '../controllers/products/productsController';
+import { ProductsRepository } from '@modules/products/repositories/productsRepository';
+import { ListProductsService } from '@modules/products/services/listProductsService';
+import { Router, Request, Response } from 'express';
+import { ProductsController } from '../controllers/productsController';
 
-// export const productsRoutes = Router();
+const productsRepository = new ProductsRepository();
+const listProductsService = new ListProductsService(productsRepository);
+const productsController = new ProductsController(listProductsService);
 
-// productsRoutes.get('/', async (req, res): Promise<any> => {
-//   const productsRepository = new ProductsRepository();
-// //   const productsController = new ProductsController(productsRepository);
+export const productsRouter = Router();
 
-// //   const { body, statusCode } = await productsController.list();
+productsRouter.get('/', async (req, res): Promise<any> => {
+  const { statusCode, body } = await productsController.getProducts();
 
-//   return res.status(statusCode).json({
-//     status: 'sucess',
-//     data: body,
-//   });
-// });
+  return res.status(statusCode).json({
+    data: body,
+  });
+});
