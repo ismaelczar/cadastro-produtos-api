@@ -1,5 +1,5 @@
 import { HttpResponse } from '../../../config/httpResponse';
-import { IUsersRepository } from '../repositories/protocols';
+import { IUsersRepository } from '../repositories/IUsersRepository';
 
 export class RemoveUserService {
   constructor(private readonly usersRepository: IUsersRepository) {}

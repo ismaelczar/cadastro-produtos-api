@@ -1,6 +1,6 @@
 import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
-import { IUsersRepository } from '../repositories/protocols';
+import { IUsersRepository } from '../repositories/IUsersRepository';
 import { HttpResponse } from '../../../config/httpResponse';
 import { User } from '../infra/typeorm/entities/user';
 

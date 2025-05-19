@@ -1,7 +1,7 @@
 import { compare, hash } from 'bcrypt';
 import { HttpResponse } from '../../../config/httpResponse';
 import { User } from '../infra/typeorm/entities/user';
-import { IUsersRepository } from '../repositories/protocols';
+import { IUsersRepository } from '../repositories/IUsersRepository';
 
 export class UpdatedPasswordUserService {
   constructor(private readonly usersRepository: IUsersRepository) {}

@@ -1,13 +1,11 @@
 import { User } from '../../users/infra/typeorm/entities/user';
-import { IUsersRepository } from './protocols';
+import { IUsersRepository } from './IUsersRepository';
 
 import { getRepository } from 'typeorm';
 
 export class UserRepository implements IUsersRepository {
   async findAll(): Promise<User[]> {
-    const ormRepository = getRepository(User);
-
-    return await ormRepository.find();
+    return getRepository(User).find();
   }
 
   findById(id: string): Promise<User | null> {

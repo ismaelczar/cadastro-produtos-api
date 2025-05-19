@@ -1,6 +1,6 @@
 import { HttpResponse } from '../../../config/httpResponse';
 import { User } from '../infra/typeorm/entities/user';
-import { IUsersRepository } from '../repositories/protocols';
+import { IUsersRepository } from '../repositories/IUsersRepository';
 
 export class ListUsersService {
   constructor(private readonly usersRepository: IUsersRepository) {}
