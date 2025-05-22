@@ -2,12 +2,15 @@ import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import { IUsersRepository } from '../repositories/IUsersRepository';
 import { HttpResponse } from '../../../config/httpResponse';
-import { User } from '../infra/typeorm/entities/user';
+import { AuthenticateUserResponse } from '@config/authenticated';
 
 export class AuthenticateUserService {
   constructor(private readonly usersRepository: IUsersRepository) {}
 
-  async login(email: string, password: string): Promise<HttpResponse<User>> {
+  async login(
+    email: string,
+    password: string,
+  ): Promise<HttpResponse<AuthenticateUserResponse>> {
     try {
       const user = await this.usersRepository.findByEmail(email);
 
@@ -27,21 +30,29 @@ export class AuthenticateUserService {
         };
       }
 
-      const token = sign({}, 'a11113006a7272e0cfad95952e7e62f3', {
+      const accessToken = sign({}, 'a11113006a7272e0cfad95952e7e62f3', {
         subject: user.id,
-        expiresIn: '1d',
+        expiresIn: '15m',
+      });
+
+      const refreshToken = sign({}, 'a11113006a7272e0cfad95952e7e62f3', {
+        subject: user.id,
+        expiresIn: '7d',
       });
 
       const userAuthenticate = {
         ...user,
-        token,
+        accessToken,
       };
 
       delete userAuthenticate.password;
 
       return {
         statusCode: 200,
-        body: userAuthenticate,
+        body: {
+          user: userAuthenticate,
+          refreshToken,
+        },
       };
     } catch (error) {
       return {
