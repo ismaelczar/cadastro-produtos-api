@@ -1,9 +1,9 @@
 import { HttpResponse } from '@config/httpResponse';
 import { User } from '@modules/users/infra/typeorm/entities/user';
-import { CreateUserService } from '@modules/users/services/createUserService';
-import { ListUsersService } from '@modules/users/services/listUsersService';
-import { RemoveUserService } from '@modules/users/services/removeUserService';
-import { UpdatedPasswordUserService } from '@modules/users/services/updatedPasswordUserService';
+import { CreateUserService } from '@modules/users/services/CreateUserService';
+import { ListUsersService } from '@modules/users/services/ListUsersService';
+import { RemoveUserService } from '@modules/users/services/RemoveUserService';
+import { UpdatedPasswordUserService } from '@modules/users/services/UpdatedPasswordUserService';
 
 export class UsersController {
   constructor(
