@@ -7,7 +7,7 @@ import { AuthenticateUserResponse } from '@config/authenticated';
 export class AuthenticateUserService {
   constructor(private readonly usersRepository: IUsersRepository) {}
 
-  async login(
+  async execute(
     email: string,
     password: string,
   ): Promise<HttpResponse<AuthenticateUserResponse>> {

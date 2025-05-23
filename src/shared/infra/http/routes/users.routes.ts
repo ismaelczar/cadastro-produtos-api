@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import { UsersController } from '@shared/infra/http/controllers/usersController';
 import { UserRepository } from '@modules/users/repositories/usersRepository';
-import { CreateUserService } from '@modules/users/services/createUserService';
-import { ListUsersService } from '@modules/users/services/listUsersService';
-import { UpdatedPasswordUserService } from '@modules/users/services/updatedPasswordUserService';
-import { RemoveUserService } from '@modules/users/services/removeUserService';
+import { CreateUserService } from '@modules/users/services/CreateUserService';
+import { ListUsersService } from '@modules/users/services/ListUsersService';
+import { UpdatedPasswordUserService } from '@modules/users/services/UpdatedPasswordUserService';
+import { RemoveUserService } from '@modules/users/services/RemoveUserService';
 
 import { ensureAuthenticated } from '@modules/users/middlewares/ensureAuthenticated';
 

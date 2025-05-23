@@ -6,6 +6,7 @@ import '@shared/infra/typeorm';
 import { usersRouter } from './routes/users.routes';
 import { sessionsRouter } from './routes/sessions.routes';
 import { productsRouter } from './routes/products.routes';
+import { refreshRouter } from './routes/refresh.routes';
 
 export const app = express();
 
@@ -15,3 +16,5 @@ app.use(cors());
 app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/sessions', sessionsRouter);
 app.use('/api/v1/products', productsRouter);
+
+app.use('/api/v1/token/refresh-token', refreshRouter);
