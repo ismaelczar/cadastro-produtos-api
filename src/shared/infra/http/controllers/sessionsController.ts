@@ -6,7 +6,7 @@ import { AuthenticateUserService } from '@modules/users/services/SessionsService
 export class SessionsController {
   constructor(private readonly sessionsService: AuthenticateUserService) {}
 
-  async login(
+  async handle(
     email: string,
     password: string,
   ): Promise<HttpResponse<AuthenticateUserResponse>> {

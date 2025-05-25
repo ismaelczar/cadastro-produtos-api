@@ -17,4 +17,4 @@ app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/sessions', sessionsRouter);
 app.use('/api/v1/products', productsRouter);
 
-app.use('/api/v1/token/refresh-token', refreshRouter);
+app.use('/api/v1/refresh', refreshRouter);
