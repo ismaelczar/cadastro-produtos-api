@@ -24,7 +24,7 @@ const usersController = new UsersController(
   removeUserService,
 );
 
-usersRouter.get('/', async (req, res): Promise<any> => {
+usersRouter.get('/', ensureAuthenticated, async (req, res): Promise<any> => {
   const { body, statusCode } = await usersController.getUsers();
 
   return res.status(statusCode).json({
