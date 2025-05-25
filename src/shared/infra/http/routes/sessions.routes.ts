@@ -12,7 +12,7 @@ const sessionsController = new SessionsController(sessionsService);
 sessionsRouter.post('/', async (req, res): Promise<any> => {
   const { email, password } = req.body;
 
-  const { body, statusCode } = await sessionsController.login(email, password);
+  const { body, statusCode } = await sessionsController.handle(email, password);
 
   if (statusCode === 200 && typeof body !== 'string') {
     const { refreshToken, user } = body;
