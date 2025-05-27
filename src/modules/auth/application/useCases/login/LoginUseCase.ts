@@ -13,16 +13,16 @@ export class LoginUserCase {
     password: string,
   ): Promise<HttpResponse<LoginResponse>> {
     try {
-      const user = await this.usersRepository.findByEmail(email);
+      const userExist = await this.usersRepository.findByEmail(email);
 
-      if (!user) {
+      if (!userExist) {
         return {
           statusCode: 401,
           body: 'Incorrect email/password comnination.',
         };
       }
 
-      const passwordMatched = await compare(password, user.password);
+      const passwordMatched = await compare(password, userExist.password);
 
       if (!passwordMatched) {
         return {
@@ -32,17 +32,17 @@ export class LoginUserCase {
       }
 
       const accessToken = sign({}, 'a11113006a7272e0cfad95952e7e62f3', {
-        subject: user.id,
+        subject: userExist.id,
         expiresIn: '15m',
       });
 
       const refreshToken = sign({}, 'a11113006a7272e0cfad95952e7e62f3', {
-        subject: user.id,
+        subject: userExist.id,
         expiresIn: '7d',
       });
 
       const userAuthenticate = {
-        ...user,
+        ...userExist,
         accessToken,
       };
 
