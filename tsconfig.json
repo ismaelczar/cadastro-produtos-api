@@ -23,9 +23,6 @@
             ],
             "@shared/*": [
                 "shared/*"
-            ],
-            "@types/*": [
-                "_types/*"
             ]
         }
     }

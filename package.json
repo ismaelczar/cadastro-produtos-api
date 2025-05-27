@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch ./src/shared/infra/http/server.ts",
+    "dev": "tsx watch ./src/main/server.ts",
     "build": "tsup src",
-    "start": "ts-node src/server.ts",
+    "start": "ts-node /src/main/server.ts",
     "migrate:create": "ts-node ./node_modules/typeorm/cli.js migration:create -n",
     "migrate:up": "ts-node ./node_modules/typeorm/cli.js migration:run",
     "migrate:down": "ts-node ./node_modules/typeorm/cli.js migration:revert"
