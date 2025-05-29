@@ -1,10 +1,10 @@
 import { compare, hash } from 'bcrypt';
 import { HttpResponse } from '@shared/responses/httpResponse';
 import { User } from '@modules/users/domain/entities/user';
-import { IUsersRepository } from '@modules/users/domain/repositories/IUsersRepository';
+import { IUserRepository } from '@modules/users/domain/repositories/IUserRepository';
 
 export class UpdatedPasswordUserUseCase {
-  constructor(private readonly usersRepository: IUsersRepository) {}
+  constructor(private readonly usersRepository: IUserRepository) {}
 
   async execute(
     id: string,

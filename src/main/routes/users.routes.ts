@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { UsersController } from '@modules/users/application/useCases/createUser/usersController';
-import { UserRepository } from '@modules/users/infra/repositories/UsersRepository';
+import { UserRepository } from '@modules/users/infra/repositories/UserRepository';
 import { CreateUserUseCase } from '@modules/users/application/useCases/createUser/CreateUserUseCase';
 import { ListUsersUseCase } from '@modules/users/application/useCases/listUsers/ListUsersUseCase';
 import { UpdatedPasswordUserUseCase } from '@modules/users/application/useCases/updatedPasswordUser/UpdatedPasswordUserUseCase';

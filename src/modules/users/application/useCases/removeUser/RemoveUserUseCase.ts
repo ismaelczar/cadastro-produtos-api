@@ -1,8 +1,8 @@
 import { HttpResponse } from '../../../../../shared/responses/httpResponse';
-import { IUsersRepository } from '@modules/users/domain/repositories/IUsersRepository';
+import { IUserRepository } from '@modules/users/domain/repositories/IUserRepository';
 
 export class RemoveUserUseCase {
-  constructor(private readonly usersRepository: IUsersRepository) {}
+  constructor(private readonly usersRepository: IUserRepository) {}
 
   async execute(id: string): Promise<HttpResponse<string>> {
     try {

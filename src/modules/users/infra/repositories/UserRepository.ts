@@ -1,9 +1,9 @@
 import { User } from '@modules/users/domain/entities/user';
-import { IUsersRepository } from '../../domain/repositories/IUsersRepository';
+import { IUserRepository } from '../../domain/repositories/IUserRepository';
 
 import { getRepository } from 'typeorm';
 
-export class UserRepository implements IUsersRepository {
+export class UserRepository implements IUserRepository {
   async findAll(): Promise<User[]> {
     return getRepository(User).find();
   }
