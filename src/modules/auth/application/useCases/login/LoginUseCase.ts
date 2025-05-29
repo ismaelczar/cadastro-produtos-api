@@ -1,13 +1,17 @@
 import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
-import { IUsersRepository } from '@modules/users/domain/repositories/IUsersRepository';
+import { IUserRepository } from '@modules/users/domain/repositories/IUserRepository';
 import { HttpResponse } from '../../../../../shared/responses/httpResponse';
 import { LoginResponse } from '@modules/auth/domain/dtos/LoginResponse';
+import { injectable, inject } from 'tsyringe';
 
+@injectable()
 export class LoginUserCase {
-  constructor(private readonly usersRepository: IUsersRepository) {}
+  constructor(
+    @inject('UserRepository')
+    private readonly usersRepository: IUserRepository,
+  ) {}
 
-  //TODO: USECASE NÃO DEVERIA SE PREOCUPAR COM STATUSCODE QUEM DEVE RETORNAR É O CONTROLLER.
   async execute(
     email: string,
     password: string,

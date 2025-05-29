@@ -1,15 +1,14 @@
-import { LoginResponse } from '@modules/auth/domain/dtos/LoginResponse';
-import { HttpResponse } from '@shared/responses/httpResponse';
-
+import { Request, Response } from 'express';
+import { container } from 'tsyringe';
 import { LoginUserCase } from '@modules/auth/application/useCases/login/LoginUseCase';
 
 export class LoginController {
-  constructor(private readonly loginUserCase: LoginUserCase) {}
+  async handle(req: Request, res: Response): Promise<Response> {
+    const { email, password } = req.body;
 
-  async handle(
-    email: string,
-    password: string,
-  ): Promise<HttpResponse<LoginResponse>> {
-    return this.loginUserCase.execute(email, password);
+    const useCase = container.resolve(LoginUserCase);
+    const result = await useCase.execute(email, password);
+
+    return res.json(result);
   }
 }
