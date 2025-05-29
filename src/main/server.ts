@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import '../shared/container';
 import { app } from './app';
 
 const port = process.env.port || 3000;
