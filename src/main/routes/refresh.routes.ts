@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { RefreshTokenController } from '@modules/auth/application/useCases/refreshToken/RefreshTokenController';
+import { RefreshTokenController } from '@modules/auth/application/useCases/refreshToken/RefreshController';
 import { ensureRefreshToken } from 'main/http/middlewares/ensureRefreshToken';
-import { RefreshTokenUseCase } from '@modules/auth/application/useCases/refreshToken/RefreshTokenUseCase';
+import { RefreshTokenUseCase } from '@modules/auth/application/useCases/refreshToken/RefreshUseCase';
 
 const refreshTokenUseCase = new RefreshTokenUseCase();
 const refreshTokenController = new RefreshTokenController(refreshTokenUseCase);
