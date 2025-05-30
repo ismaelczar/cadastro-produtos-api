@@ -21,7 +21,7 @@ export function ensureAuthenticated(
 
   try {
     //TODO: Criar arquivo para o hash
-    const decoded = verify(token, 'a11113006a7272e0cfad95952e7e62f3');
+    const decoded = verify(token, process.env.JWT_SECRET);
     const { sub } = decoded as TokenPayload;
 
     req.user = {
