@@ -1,49 +1,38 @@
 import { hash } from 'bcrypt';
-import { HttpResponse } from '@shared/responses/httpResponse';
 import { User } from '@modules/users/domain/entities/user';
 import { IUserRepository } from '@modules/users/domain/repositories/IUserRepository';
+import { injectable, inject } from 'tsyringe';
+import { AppError } from '@shared/core/errors/AppError';
 
+@injectable()
 export class CreateUserUseCase {
-  constructor(private readonly usersRepository: IUserRepository) {}
+  constructor(
+    @inject('UserRepository')
+    private readonly userRepository: IUserRepository,
+  ) {}
 
-  async execute({
-    firstName,
-    lastName,
-    email,
-    password,
-  }: Omit<User, 'id'>): Promise<HttpResponse<User>> {
-    try {
-      const userIndex = await this.usersRepository.findByEmail(email);
+  async execute({ firstName, lastName, email, password }: Omit<User, 'id'>) {
+    const emailAlreadyRegisteredt = await this.userRepository.findByEmail(
+      email,
+    );
 
-      if (userIndex) {
-        return {
-          statusCode: 409,
-          body: 'Email is already in use.',
-        };
-      }
-
-      const hashedPassword = await hash(password, 8);
-
-      const user = {
-        firstName,
-        lastName,
-        email,
-        password: hashedPassword,
-      };
-
-      this.usersRepository.create(user);
-
-      delete user.password;
-
-      return {
-        statusCode: 201,
-        body: user,
-      };
-    } catch (error) {
-      return {
-        statusCode: 500,
-        body: 'Internal server error',
-      };
+    if (emailAlreadyRegisteredt) {
+      throw new AppError('E-mail já cadastrado', 409, 'validation');
     }
+
+    const hashedPassword = await hash(password, 8);
+
+    const user = {
+      firstName,
+      lastName,
+      email,
+      password: hashedPassword,
+    };
+
+    this.userRepository.create(user);
+
+    delete user.password;
+
+    return user;
   }
 }
