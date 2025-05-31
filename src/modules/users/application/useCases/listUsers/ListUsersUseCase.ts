@@ -1,23 +1,16 @@
-import { HttpResponse } from '@shared/responses/httpResponse';
 import { User } from '@modules/users/domain/entities/user';
 import { IUserRepository } from '@modules/users/domain/repositories/IUserRepository';
+import { injectable, inject } from 'tsyringe';
 
+@injectable()
 export class ListUsersUseCase {
-  constructor(private readonly usersRepository: IUserRepository) {}
+  constructor(
+    @inject('UserRepository') private readonly userRepository: IUserRepository,
+  ) {}
 
-  async execute(): Promise<HttpResponse<User[]>> {
-    try {
-      const users = await this.usersRepository.findAll();
+  async execute(): Promise<User[]> {
+    const users = await this.userRepository.findAll();
 
-      return {
-        statusCode: 200,
-        body: users,
-      };
-    } catch (error) {
-      return {
-        statusCode: 500,
-        body: 'Internal server error',
-      };
-    }
+    return users;
   }
 }
