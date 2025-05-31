@@ -2,6 +2,7 @@ import { injectable, inject } from 'tsyringe';
 import { IUserRepository } from '@modules/users/domain/repositories/IUserRepository';
 import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
+import { AppError } from '@shared/core/errors/AppError';
 
 @injectable()
 export class LoginUseCase {
@@ -17,13 +18,13 @@ export class LoginUseCase {
     const userExist = await this.userRepository.findByEmail(email);
 
     if (!userExist) {
-      throw new Error('E-mail não cadastrado');
+      throw new AppError('E-mail inválido', 409, 'validation');
     }
 
     const passwordMatched = compare(password, userExist.password);
 
     if (!passwordMatched) {
-      throw new Error('Senha inválida');
+      throw new AppError('Senha inválida', 409, 'validation');
     }
 
     const token = sign({ email: email }, process.env.JWT_SECRET!, {

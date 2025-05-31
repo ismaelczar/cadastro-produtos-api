@@ -7,8 +7,11 @@ export class LoginController {
     const { email, password } = req.body;
 
     const useCase = container.resolve(LoginUseCase);
-    const result = await useCase.execute(email, password);
-
-    return res.json(result);
+    try {
+      const result = await useCase.execute(email, password);
+      return res.json(result);
+    } catch (err) {
+      return res.status(err.statusCode).json(err.message);
+    }
   }
 }
