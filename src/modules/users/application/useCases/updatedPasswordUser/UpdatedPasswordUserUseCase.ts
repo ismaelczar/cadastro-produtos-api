@@ -1,53 +1,36 @@
 import { compare, hash } from 'bcrypt';
-import { HttpResponse } from '@shared/responses/httpResponse';
+
 import { User } from '@modules/users/domain/entities/user';
 import { IUserRepository } from '@modules/users/domain/repositories/IUserRepository';
+import { inject, injectable } from 'tsyringe';
+import { AppError } from '@shared/core/errors/AppError';
 
+@injectable()
 export class UpdatedPasswordUserUseCase {
-  constructor(private readonly usersRepository: IUserRepository) {}
+  constructor(
+    @inject('UserRepository') private readonly usersRepository: IUserRepository,
+  ) {}
 
   async execute(
-    id: string,
+    email: string,
     password: string,
     newPassword: string,
-  ): Promise<HttpResponse<User>> {
-    try {
-      //TODO: RECEBER A SENHA ATUAL E VERIFICAR SE É VALIDA ANTES DE ATUALIZAR
-      const user = await this.usersRepository.findById(id);
+  ): Promise<Omit<User, 'id'>> {
+    const user = await this.usersRepository.findByEmail(email);
+    const passwordMatched = await compare(password, user.password);
 
-      if (!user) {
-        return {
-          statusCode: 400,
-          body: 'User not exist',
-        };
-      }
-
-      const passwordMatched = await compare(password, user.password);
-
-      if (!passwordMatched) {
-        return {
-          statusCode: 400,
-          body: 'Incorrect comninationt',
-        };
-      }
-
-      const hashedPassword = await hash(newPassword, 8);
-
-      user.password = hashedPassword;
-
-      const updatedUser = await this.usersRepository.updatePassword(user);
-
-      delete updatedUser.password;
-
-      return {
-        statusCode: 200,
-        body: updatedUser,
-      };
-    } catch (error) {
-      return {
-        statusCode: 500,
-        body: 'Internal server error',
-      };
+    if (!user || !passwordMatched) {
+      throw new AppError('Combinação inválida ', 409, 'validation');
     }
+
+    const hashedPassword = await hash(newPassword, 8);
+
+    user.password = hashedPassword;
+
+    const updatedUser = await this.usersRepository.updatePassword(user);
+
+    delete updatedUser.password;
+
+    return updatedUser;
   }
 }

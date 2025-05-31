@@ -17,7 +17,7 @@ export class CreateUserUseCase {
     );
 
     if (emailAlreadyRegisteredt) {
-      throw new AppError('E-mail já cadastrado', 409, 'validation');
+      throw new AppError('E-emil já cdstrado', 409, 'validation');
     }
 
     const hashedPassword = await hash(password, 8);
