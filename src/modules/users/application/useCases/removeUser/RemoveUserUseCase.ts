@@ -1,28 +1,21 @@
-import { HttpResponse } from '../../../../../shared/responses/httpResponse';
+import { inject, injectable } from 'tsyringe';
 import { IUserRepository } from '@modules/users/domain/repositories/IUserRepository';
+import { AppError } from '@shared/core/errors/AppError';
 
+@injectable()
 export class RemoveUserUseCase {
-  constructor(private readonly usersRepository: IUserRepository) {}
+  constructor(
+    @inject('UserRepository') private readonly userRepository: IUserRepository,
+  ) {}
 
-  async execute(id: string): Promise<HttpResponse<string>> {
-    try {
-      const userId = id;
+  async execute(id: string): Promise<void> {
+    const userId = id;
+    const userIndex = this.userRepository.findById(userId);
 
-      const user = this.usersRepository.findById(userId);
-
-      if (user) {
-        await this.usersRepository.delete(userId);
-      }
-
-      return {
-        statusCode: 200,
-        body: 'User removed',
-      };
-    } catch (error) {
-      return {
-        statusCode: 500,
-        body: 'Internal server error',
-      };
+    if (!userIndex) {
+      throw new AppError('Internal server error', 500, 'validation');
     }
+
+    await this.userRepository.delete(userId);
   }
 }
