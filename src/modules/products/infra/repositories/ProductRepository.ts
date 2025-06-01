@@ -14,7 +14,13 @@ export class ProductRepository implements IProductRepository {
   }
 
   async create(product: Product): Promise<Product> {
-    return getRepository(Product).create(product);
+    const ormRepo = getRepository(Product);
+
+    const newPoduct = ormRepo.create(product);
+
+    await ormRepo.save(newPoduct);
+
+    return newPoduct;
   }
 
   async update(product: Partial<Product>): Promise<Product> {

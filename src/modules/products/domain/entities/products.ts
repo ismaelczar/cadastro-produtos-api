@@ -18,7 +18,7 @@ export class Product {
   description: string;
 
   @Column('json', { nullable: true })
-  long_description?: string[]; // <-- Array de descrições longas
+  long_description?: string[];
 
   @CreateDateColumn({ type: 'timestamp with time zone' })
   created_at?: Date;
