@@ -1,10 +1,16 @@
 import { getRepository } from 'typeorm';
 import { Product } from '@modules/products/domain/entities/products';
-import { IProductsRepository } from '../../domain/repositories/IProductsRepository';
+import { IProductRepository } from '../../domain/repositories/IProductRepository';
 
-export class ProductsRepository implements IProductsRepository {
+export class ProductRepository implements IProductRepository {
   async findAll(): Promise<Product[]> {
     return await getRepository(Product).find();
+  }
+
+  async findById(id: string): Promise<Product> {
+    return await getRepository(Product).findOne({
+      where: { id: id },
+    });
   }
 
   async create(product: Product): Promise<Product> {

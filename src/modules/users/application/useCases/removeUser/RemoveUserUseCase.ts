@@ -16,6 +16,6 @@ export class RemoveUserUseCase {
       throw new AppError('Internal server error', 500, 'validation');
     }
 
-    await this.userRepository.delete(userId);
+    await this.userRepository.remove(userId);
   }
 }

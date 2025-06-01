@@ -18,21 +18,21 @@ export class UserRepository implements IUserRepository {
     return user;
   }
 
+  async findByEmail(email: string): Promise<User | null> {
+    const ormRepository = getRepository(User);
+    const user = ormRepository.findOne({
+      where: { email: email },
+    });
+
+    return user;
+  }
+
   async create(userData: User): Promise<User> {
     const ormRepository = getRepository(User);
 
     const user = ormRepository.create(userData);
 
     await ormRepository.save(user);
-
-    return user;
-  }
-
-  async findByEmail(email: string): Promise<User | null> {
-    const ormRepository = getRepository(User);
-    const user = ormRepository.findOne({
-      where: { email: email },
-    });
 
     return user;
   }
@@ -45,7 +45,7 @@ export class UserRepository implements IUserRepository {
     return updatedUser;
   }
 
-  async delete(id: string): Promise<void> {
+  async remove(id: string): Promise<void> {
     const ormRepository = getRepository(User);
 
     await ormRepository.delete(id);
