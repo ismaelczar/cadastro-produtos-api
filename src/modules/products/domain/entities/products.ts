@@ -17,7 +17,7 @@ export class Product {
   @Column({ type: 'varchar' })
   description: string;
 
-  @Column('simple-array', { nullable: true })
+  @Column('json', { nullable: true })
   long_description?: string[]; // <-- Array de descrições longas
 
   @CreateDateColumn({ type: 'timestamp with time zone' })
