@@ -1,11 +1,16 @@
-import { HttpResponse } from '@shared/responses/httpResponse';
-import { Product } from '@modules/products/domain/entities/products';
-import { ListProductsUseCase } from '@modules/products/application/useCases/listProducts/ListProductsUseCase';
+import { Request, Response } from 'express';
+import { container } from 'tsyringe';
+import { ListProductsUseCase } from './ListProductsUseCase';
 
 export class ListProductsController {
-  constructor(private readonly listProductsUseCase: ListProductsUseCase) {}
+  async handle(req: Request, res: Response): Promise<Response> {
+    const useCase = container.resolve(ListProductsUseCase);
 
-  async handler(): Promise<HttpResponse<Product[]>> {
-    return this.listProductsUseCase.execute();
+    try {
+      const result = await useCase.execute();
+      return res.json(result);
+    } catch (err) {
+      return res.status(err.statusCode).json(err.message);
+    }
   }
 }
