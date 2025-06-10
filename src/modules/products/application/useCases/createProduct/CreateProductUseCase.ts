@@ -13,9 +13,15 @@ export class CreateProductUseCase {
     const product = {
       name: data.name,
       price: data.price,
-      image: data.image,
       description: data.description,
       long_description: data.long_description,
+      image_urls: data.image_urls,
+      rating: data.rating,
+      reviewCount: data.reviewCount,
+      features: data.features,
+      isAvailable: data.isAvailable,
+      freeShipping: data.freeShipping,
+      shippingEstimate: data.shippingEstimate,
     };
 
     return await this.productRepository.create(product);

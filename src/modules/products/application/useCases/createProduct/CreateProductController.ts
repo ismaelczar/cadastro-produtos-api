@@ -6,7 +6,6 @@ import { CreateProductDTO } from '@modules/products/domain/dtos/CreateProductDTO
 export class CreateProductController {
   async handle(req: Request, res: Response): Promise<Response> {
     const data: CreateProductDTO = req.body;
-    console.log(data);
 
     const useCase = container.resolve(CreateProductUseCase);
 
