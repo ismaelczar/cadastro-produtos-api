@@ -21,7 +21,7 @@ export class LoginUseCase {
       throw new AppError('E-mail inválido', 409, 'validation');
     }
 
-    const passwordMatched = compare(password, userExist.password);
+    const passwordMatched = await compare(password, userExist.password);
 
     if (!passwordMatched) {
       throw new AppError('Senha inválida', 409, 'validation');
