@@ -8,7 +8,7 @@ export class UserRepository implements IUserRepository {
     return getRepository(User).find();
   }
 
-  findById(id: string): Promise<User | null> {
+  async findById(id: string): Promise<User | null> {
     const ormRepository = getRepository(User);
 
     const user = ormRepository.findOne({
