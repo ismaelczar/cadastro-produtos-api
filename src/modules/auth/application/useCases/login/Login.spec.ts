@@ -38,14 +38,9 @@ describe('AuthenticateUser', () => {
       password: hashedPassword,
     });
 
-    try {
-      await loginUseCase.execute('invalid e-mail', '123456');
-    } catch (error) {
-      expect(error).toBeInstanceOf(AppError);
-      expect(error.message).toBe('E-mail inválido');
-      expect(error.statusCode).toBe(409);
-      expect(error.type).toBe('validation');
-    }
+    await expect(
+      loginUseCase.execute('invalid e-mail', '123456'),
+    ).rejects.toEqual(new AppError('E-mail inválido', 409, 'validation'));
   });
 
   it('should throw if ID is not a valid password', async () => {
@@ -56,13 +51,8 @@ describe('AuthenticateUser', () => {
       password: hashedPassword,
     });
 
-    try {
-      await loginUseCase.execute('test@example.com', 'invalid-password');
-    } catch (error) {
-      expect(error).toBeInstanceOf(AppError);
-      expect(error.message).toBe('Senha inválida');
-      expect(error.statusCode).toBe(409);
-      expect(error.type).toBe('validation');
-    }
+    await expect(
+      loginUseCase.execute('test@example.com', 'invalid-password'),
+    ).rejects.toEqual(new AppError('Senha inválida', 409, 'validation'));
   });
 });
