@@ -38,10 +38,7 @@ describe('ListProducts', () => {
     };
 
     await fakeRepositoryProducts.create(product);
-
-    const result = await listProductsUseCase.execute();
-
-    expect(result).toBeInstanceOf(Array);
+    await expect(listProductsUseCase.execute()).resolves.toBeInstanceOf(Array);
   });
 
   it('should throw internal error when product list is empty', async () => {
