@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import { RemoveUserUseCase } from './RemoveUserUseCase';
+import { DeleteUserUseCase } from './DeleteUserUseCase';
 
-export class RemoveUserController {
+export class DeleteUserController {
   async handle(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
-    const useCase = container.resolve(RemoveUserUseCase);
+    const useCase = container.resolve(DeleteUserUseCase);
 
     try {
       const result = await useCase.execute(id);

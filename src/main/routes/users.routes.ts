@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { CreateUserController } from '@modules/users/application/useCases/createUser/CreateUserController';
 import { ListUserController } from '@modules/users/application/useCases/listUsers/ListUsersController';
-import { RemoveUserController } from '@modules/users/application/useCases/removeUser/RemoveUserController';
+import { DeleteUserController } from '@modules/users/application/useCases/deleteUser/DeleteUserController';
 import { ensureAuthenticated } from 'main/http/middlewares/ensureAuthenticated';
 import { UpdatedPasswordUserController } from '@modules/users/application/useCases/updatedPasswordUser/UpdatedPasswordUserController';
 
@@ -9,7 +9,7 @@ export const usersRouter = Router();
 
 const createUserController = new CreateUserController();
 const listUserController = new ListUserController();
-const removeUserController = new RemoveUserController();
+const deleteUserController = new DeleteUserController();
 const updatedaPasswordController = new UpdatedPasswordUserController();
 
 usersRouter.get(
@@ -29,5 +29,5 @@ usersRouter.patch(
 usersRouter.delete(
   '/:id',
   ensureAuthenticated,
-  removeUserController.handle.bind(removeUserController),
+  deleteUserController.handle.bind(DeleteUserController),
 );

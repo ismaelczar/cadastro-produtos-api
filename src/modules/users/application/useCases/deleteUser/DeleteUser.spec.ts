@@ -1,0 +1,37 @@
+import 'reflect-metadata';
+import { FakeUserRepository } from '@modules/auth/domain/repositories/fakes/FakeUserRepository';
+import { DeleteUserUseCase } from './DeleteUserUseCase';
+import { User } from '@modules/users/domain/entities/user';
+import { AppError } from '@shared/core/errors/AppError';
+
+describe('RemoveUser', () => {
+  let fakeUserRepository: FakeUserRepository;
+  let deleteUserUseCase: DeleteUserUseCase;
+  let fakeUser: User;
+
+  beforeEach(() => {
+    fakeUserRepository = new FakeUserRepository();
+    deleteUserUseCase = new DeleteUserUseCase(fakeUserRepository);
+    fakeUser = {
+      id: '1',
+      firstName: 'Teste',
+      lastName: 'teste',
+      email: 'test@example.com',
+      password: '123456',
+    };
+  });
+
+  it('hould be able to remove a user', async () => {
+    const fakeUserData = await fakeUserRepository.create(fakeUser);
+
+    await expect(
+      deleteUserUseCase.execute(fakeUserData.id),
+    ).resolves.toBeUndefined();
+  });
+
+  it('should throw if ID is not a valid one', async () => {
+    await expect(
+      deleteUserUseCase.execute('invalid-id'),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+});
