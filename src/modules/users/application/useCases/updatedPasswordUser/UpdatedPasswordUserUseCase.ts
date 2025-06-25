@@ -17,15 +17,18 @@ export class UpdatedPasswordUserUseCase {
     newPassword: string,
   ): Promise<Omit<User, 'id'>> {
     const user = await this.usersRepository.findByEmail(email);
-    const passwordMatched = await compare(password, user.password);
 
-    if (!user || !passwordMatched) {
-      throw new AppError('Combinação inválida ', 409, 'validation');
+    if (!user) {
+      throw new AppError('Combinação inválida', 409, 'validation');
     }
 
-    const hashedPassword = await hash(newPassword, 8);
+    const passwordMatched = await compare(password, user.password);
 
-    user.password = hashedPassword;
+    if (!passwordMatched) {
+      throw new AppError('Combinação inválida', 409, 'validation');
+    }
+
+    user.password = await hash(newPassword, 8);
 
     const updatedUser = await this.usersRepository.updatePassword(user);
 
