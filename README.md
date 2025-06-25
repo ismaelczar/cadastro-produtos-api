@@ -75,4 +75,6 @@ npm run test
 - `infra/repositories`: integração com banco
 
 
-- **Ismael Cézar** - _Desenvolvedor Responsável_ - [Ismael Cézar](https://github.com/ismaelczar)
+## 🪪 Licença
+
+Distribuído sob a Licença MIT. Veja [LICENSE](./LICENSE) para mais informações.
