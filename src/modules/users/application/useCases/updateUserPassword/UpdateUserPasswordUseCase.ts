@@ -6,7 +6,7 @@ import { inject, injectable } from 'tsyringe';
 import { AppError } from '@shared/core/errors/AppError';
 
 @injectable()
-export class UpdatedPasswordUserUseCase {
+export class UpdateUserPasswordUseCase {
   constructor(
     @inject('UserRepository') private readonly usersRepository: IUserRepository,
   ) {}

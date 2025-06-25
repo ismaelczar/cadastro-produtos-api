@@ -1,18 +1,18 @@
 import 'reflect-metadata';
 import { hash } from 'bcrypt';
 import { FakeUserRepository } from '@modules/auth/domain/repositories/fakes/FakeUserRepository';
-import { UpdatedPasswordUserUseCase } from './UpdatedPasswordUserUseCase';
+import { UpdateUserPasswordUseCase } from './UpdateUserPasswordUseCase';
 import { User } from '@modules/users/domain/entities/user';
 import { AppError } from '@shared/core/errors/AppError';
 
 describe('UpdatePasswordUser', () => {
   let fakeUserRepository: FakeUserRepository;
-  let updatedPasswordUserUseCase: UpdatedPasswordUserUseCase;
+  let updatedPasswordUserUseCase: UpdateUserPasswordUseCase;
   let fakeUser: User;
 
   beforeEach(async () => {
     fakeUserRepository = new FakeUserRepository();
-    updatedPasswordUserUseCase = new UpdatedPasswordUserUseCase(
+    updatedPasswordUserUseCase = new UpdateUserPasswordUseCase(
       fakeUserRepository,
     );
 

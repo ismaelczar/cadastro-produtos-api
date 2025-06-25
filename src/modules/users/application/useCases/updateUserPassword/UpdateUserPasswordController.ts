@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import { UpdatedPasswordUserUseCase } from './UpdatedPasswordUserUseCase';
+import { UpdateUserPasswordUseCase } from './UpdateUserPasswordUseCase';
 
 export class UpdatedPasswordUserController {
   async handle(req: Request, res: Response): Promise<Response> {
     const { emai, password, newPassword } = req.body;
-    const useCase = container.resolve(UpdatedPasswordUserUseCase);
+    const useCase = container.resolve(UpdateUserPasswordUseCase);
 
     try {
       const result = await useCase.execute(emai, password, newPassword);
