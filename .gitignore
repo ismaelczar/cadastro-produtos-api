@@ -37,7 +37,8 @@ Thumbs.db
 coverage/
 
 # Temporary files
-tmp/
+tmp/**
+!tmp/.gitkeep
 temp/
 *.tmp
 *.temp

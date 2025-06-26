@@ -17,6 +17,9 @@ export class User {
   @Column({ type: 'varchar' })
   password: string;
 
+  @Column({ type: 'varchar' })
+  avatar?: string;
+
   @CreateDateColumn({ type: 'timestamp with time zone' })
   created_at?: Date;
 }
