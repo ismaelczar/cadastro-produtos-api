@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import { ListUsersUseCase } from './ListUserUseCase';
+import { ListUserUseCase } from './ListUserUseCase';
 
 export class ListUserController {
   async handle(req: Request, res: Response): Promise<Response> {
-    const useCase = container.resolve(ListUsersUseCase);
+    const useCase = container.resolve(ListUserUseCase);
 
     try {
       const result = await useCase.execute();
