@@ -50,4 +50,9 @@ export class UserRepository implements IUserRepository {
 
     await ormRepository.delete(id);
   }
+
+  async save(user: User): Promise<User> {
+    const ormRepository = getRepository(User);
+    return await ormRepository.save(user);
+  }
 }
