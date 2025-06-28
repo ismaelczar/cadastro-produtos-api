@@ -4,8 +4,11 @@ import { CreateProductController } from '@modules/products/application/useCases/
 import { UpdatedProductController } from '@modules/products/application/useCases/updateProduct/UpdateProductController';
 import { DeleteProductController } from '@modules/products/application/useCases/deleteProduct/DeleteProductController';
 import { ensureAuthenticated } from 'main/http/middlewares/ensureAuthenticated';
+import uploadConfig from '@shared/config/upload';
+import multer from 'multer';
 
 export const productsRouter = Router();
+const upload = multer(uploadConfig);
 
 const listProductsController = new ListProductsController();
 const createProductController = new CreateProductController();
@@ -20,6 +23,7 @@ productsRouter.get(
 productsRouter.post(
   '/',
   ensureAuthenticated,
+  upload.array('images'),
   createProductController.handle.bind(createProductController),
 );
 

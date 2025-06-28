@@ -4,6 +4,7 @@ import crypto from 'crypto';
 
 const tmpFolder = path.resolve(__dirname, '..', '..', '..', 'tmp');
 
+// SALVA EM DISCO PERMANENTEMENTE ATÉ QUE SEJA DELTADO.
 export default {
   directory: tmpFolder,
 
@@ -17,3 +18,9 @@ export default {
     },
   }),
 };
+
+// SALVA TEMPORARIMENTE EM MEMORIA - ENVIO PARA ALGO EXTERNO.
+
+// export default {
+//   storage: multer.memoryStorage(), // permite acesso a file.buffer
+// };

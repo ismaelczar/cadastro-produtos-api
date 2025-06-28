@@ -1,20 +1,48 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { CreateProductUseCase } from './CreateProductUseCase';
-import { CreateProductDTO } from '@modules/products/domain/dtos/CreateProductDTO';
 
 export class CreateProductController {
   async handle(req: Request, res: Response): Promise<Response> {
-    const data: CreateProductDTO = req.body;
-
-    const useCase = container.resolve(CreateProductUseCase);
-
     try {
-      const result = await useCase.execute(data);
+      const files = req.files as Express.Multer.File[];
 
-      return res.json(result);
-    } catch (err) {
-      return res.status(err.statusCodr).json(err.message);
+      const {
+        name,
+        price,
+        description,
+        long_description,
+        rating,
+        reviewCount,
+        features,
+        isAvailable,
+        freeShipping,
+        shippingEstimate,
+      } = req.body;
+
+      const image_urls: string[] = files?.map((file) => {
+        return `http://localhost:3333/tmp/${file.filename}`;
+      });
+
+      const useCase = container.resolve(CreateProductUseCase);
+
+      const result = await useCase.execute({
+        name,
+        price: Number(price),
+        description,
+        long_description: JSON.parse(long_description),
+        image_urls,
+        rating: rating ? Number(rating) : undefined,
+        reviewCount: reviewCount ? Number(reviewCount) : undefined,
+        features: JSON.parse(features),
+        isAvailable: isAvailable === 'true',
+        freeShipping: freeShipping === 'true',
+        shippingEstimate,
+      });
+
+      return res.status(201).json(result);
+    } catch (error) {
+      return res.status(error.statusCode).json(error.message);
     }
   }
 }
