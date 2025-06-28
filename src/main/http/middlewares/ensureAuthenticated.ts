@@ -1,3 +1,4 @@
+import { AppError } from '@shared/core/errors/AppError';
 import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
 
@@ -13,14 +14,12 @@ export function ensureAuthenticated(
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
-    res.status(401).json({ error: 'Token is missing' });
-    return;
+    throw new AppError('Invalid token', 401, 'validation');
   }
 
   const [_, token] = authHeader.split(' ');
 
   try {
-    //TODO: Criar arquivo para o hash
     const decoded = verify(token, process.env.JWT_SECRET);
     const { sub } = decoded as TokenPayload;
 
@@ -30,7 +29,6 @@ export function ensureAuthenticated(
 
     return next();
   } catch (error) {
-    res.status(401).json({ error: 'Invalid token' });
-    return;
+    throw new AppError('Invalid token', 401, 'validation');
   }
 }
