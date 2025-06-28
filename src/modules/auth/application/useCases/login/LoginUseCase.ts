@@ -27,13 +27,13 @@ export class LoginUseCase {
       throw new AppError('Senha inválida', 409, 'validation');
     }
 
-    const token = sign({}, process.env.JWT_SECRET!, {
-      subject: userExist.id,
+    const token = sign({ id: userExist.id }, process.env.JWT_SECRET!, {
+      subject: String(userExist.id),
       expiresIn: '15min',
     });
 
-    const refreshToken = sign({}, process.env.JWT_SECRET!, {
-      subject: userExist.id,
+    const refreshToken = sign({ id: userExist.id }, process.env.JWT_SECRET!, {
+      subject: String(userExist.id),
       expiresIn: '7d',
     });
 

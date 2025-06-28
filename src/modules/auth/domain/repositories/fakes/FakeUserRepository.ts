@@ -37,4 +37,10 @@ export class FakeUserRepository implements IUserRepository {
       this.users.splice(index, 1);
     }
   }
+
+  async save(user: User): Promise<User> {
+    const userData = user;
+    this.users.push(userData);
+    return user;
+  }
 }
