@@ -4,11 +4,15 @@ import uploadConfig from '@shared/config/upload';
 import { IUserRepository } from '@modules/users/domain/repositories/IUserRepository';
 import { AppError } from '@shared/core/errors/AppError';
 import { inject, injectable } from 'tsyringe';
+import { IStorageProvider } from '@shared/providers/storage/IStorageProvider';
 
 @injectable()
 export class UpdateUserAvatarUseCase {
   constructor(
     @inject('UserRepository') private readonly ormRepo: IUserRepository,
+
+    @inject('StorageProvider')
+    private readonly storageProvider: IStorageProvider,
   ) {}
 
   async execute(id: string, avatarFilename: string) {
@@ -23,18 +27,15 @@ export class UpdateUserAvatarUseCase {
     }
 
     if (user.avatar) {
-      const userAvatarFilePath = path.join(uploadConfig.directory, user.avatar);
-      const userAvatarFileExists = await fs.promises.stat(userAvatarFilePath);
-
-      if (userAvatarFileExists) {
-        await fs.promises.unlink(userAvatarFilePath);
-      }
+      await this.storageProvider.deleteFile(user.avatar);
     }
 
-    user.avatar = avatarFilename;
+    const fileName = await this.storageProvider.saveFile(avatarFilename);
+
+    user.avatar = fileName;
 
     await this.ormRepo.save(user);
 
-    console.log(user);
+    return user;
   }
 }

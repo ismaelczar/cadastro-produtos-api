@@ -2,7 +2,7 @@ import { injectable, inject } from 'tsyringe';
 import { IUserRepository } from '@modules/users/domain/repositories/IUserRepository';
 import { sign } from 'jsonwebtoken';
 import { AppError } from '@shared/core/errors/AppError';
-import { IHashProvider } from '@modules/users/domain/providers/hashProvider/IHashProvider';
+import { IHashProvider } from '@shared/providers/hash/IHashProvider';
 
 @injectable()
 export class LoginUseCase {

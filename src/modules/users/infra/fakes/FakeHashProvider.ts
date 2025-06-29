@@ -1,5 +1,4 @@
-import { hash, compare } from 'bcrypt';
-import { IHashProvider } from '@modules/users/domain/providers/hashProvider/IHashProvider';
+import { IHashProvider } from '@shared/providers/hash/IHashProvider';
 
 export class FakeHashProvider implements IHashProvider {
   async generateHash(payload: string): Promise<string> {

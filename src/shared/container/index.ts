@@ -1,6 +1,7 @@
 import { container } from 'tsyringe';
 
-import './hash';
+import '../providers/hash';
+import '../providers/storage';
 
 import { UserRepository } from '@modules/users/infra/repositories/UserRepository';
 import { IUserRepository } from '@modules/users/domain/repositories/IUserRepository';
