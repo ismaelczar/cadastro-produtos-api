@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { FakeProductRepository } from '@modules/products/domain/repositories/fakes/FakeProductRepository';
+import { FakeProductRepository } from '@modules/products/infra/fakes/FakeProductRepository';
 import { UpdateProductUseCase } from './UpdateProductUseCase';
 import { Product } from '@modules/products/domain/entities/products';
 import { AppError } from '@shared/core/errors/AppError';

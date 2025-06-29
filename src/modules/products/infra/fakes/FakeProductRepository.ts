@@ -1,5 +1,5 @@
-import { Product } from '../../entities/products';
-import { IProductRepository } from '../IProductRepository';
+import { Product } from '@modules/products/domain/entities/products';
+import { IProductRepository } from '@modules/products/domain/repositories/IProductRepository';
 
 export class FakeProductRepository implements IProductRepository {
   private products: Product[] = [];

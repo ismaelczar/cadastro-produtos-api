@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { FakeProductRepository } from '@modules/products/domain/repositories/fakes/FakeProductRepository';
+import { FakeProductRepository } from '@modules/products/infra/fakes/FakeProductRepository';
 import { ListProductsUseCase } from './ListProductsUseCase';
 
 describe('ListProducts', () => {

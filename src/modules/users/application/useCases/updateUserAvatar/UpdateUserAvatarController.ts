@@ -4,12 +4,12 @@ import { UpdateUserAvatarUseCase } from './UpdateUserAvatarUseCase';
 
 export class UpdateUserAvatarController {
   async handle(req: Request, res: Response): Promise<Response> {
-    const useCase = container.resolve(UpdateUserAvatarUseCase);
-
-    const userId = req.user.id;
-    const filename = req.file.filename;
-
     try {
+      const useCase = container.resolve(UpdateUserAvatarUseCase);
+
+      const userId = req.user.id;
+      const filename = req.file.filename;
+
       const result = useCase.execute(userId, filename);
 
       return res.status(200).json(result);

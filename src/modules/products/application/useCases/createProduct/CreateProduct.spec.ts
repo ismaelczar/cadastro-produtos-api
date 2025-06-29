@@ -1,4 +1,4 @@
-import { FakeProductRepository } from '@modules/products/domain/repositories/fakes/FakeProductRepository';
+import { FakeProductRepository } from '@modules/products/infra/fakes/FakeProductRepository';
 import 'reflect-metadata';
 import { CreateProductUseCase } from './CreateProductUseCase';
 
@@ -34,7 +34,7 @@ describe('CreateProduct', () => {
       shippingEstimate: '3 a 5 dias úteis',
     };
 
-    const result = await createProductUseCase.execute(product);
+    const result = await createProductUseCase.execute(product, []);
 
     expect(result).toHaveProperty('description');
     expect(result.name).toBe(product.name);
