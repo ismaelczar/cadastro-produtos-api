@@ -3,15 +3,21 @@ import { FakeUserRepository } from '@modules/auth/domain/repositories/fakes/Fake
 import { CreateUserUseCase } from './CreateUserUseCase';
 import { User } from '@modules/users/domain/entities/user';
 import { AppError } from '@shared/core/errors/AppError';
+import { FakeHashProvider } from '@modules/users/infra/fakes/FakeHashProvider';
 
 describe('CreateUser', () => {
   let fakeUserRepository: FakeUserRepository;
+  let fakeHashProvider: FakeHashProvider;
   let createUserUseCase: CreateUserUseCase;
   let fakeUser: Omit<User, 'id'>;
 
   beforeEach(() => {
     fakeUserRepository = new FakeUserRepository();
-    createUserUseCase = new CreateUserUseCase(fakeUserRepository);
+    fakeHashProvider = new FakeHashProvider();
+    createUserUseCase = new CreateUserUseCase(
+      fakeUserRepository,
+      fakeHashProvider,
+    );
     fakeUser = {
       firstName: 'Teste',
       lastName: 'teste',

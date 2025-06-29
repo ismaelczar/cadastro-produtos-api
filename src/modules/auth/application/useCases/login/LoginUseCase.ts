@@ -1,14 +1,17 @@
 import { injectable, inject } from 'tsyringe';
 import { IUserRepository } from '@modules/users/domain/repositories/IUserRepository';
-import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import { AppError } from '@shared/core/errors/AppError';
+import { IHashProvider } from '@modules/users/domain/providers/hashProvider/IHashProvider';
 
 @injectable()
 export class LoginUseCase {
   constructor(
     @inject('UserRepository')
     private userRepository: IUserRepository,
+
+    @inject('HashProvider')
+    private hashProvider: IHashProvider,
   ) {}
 
   async execute(
@@ -21,7 +24,10 @@ export class LoginUseCase {
       throw new AppError('E-mail inválido', 409, 'validation');
     }
 
-    const passwordMatched = await compare(password, userExist.password);
+    const passwordMatched = await this.hashProvider.compareHash(
+      password,
+      userExist.password,
+    );
 
     if (!passwordMatched) {
       throw new AppError('Senha inválida', 409, 'validation');

@@ -3,15 +3,18 @@ import { hash } from 'bcrypt';
 import { LoginUseCase } from './LoginUseCase';
 import { FakeUserRepository } from '@modules/auth/domain/repositories/fakes/FakeUserRepository';
 import { AppError } from '@shared/core/errors/AppError';
+import { FakeHashProvider } from '@modules/users/infra/fakes/FakeHashProvider';
 
 describe('AuthenticateUser', () => {
   let fakeUserRepository: FakeUserRepository;
+  let fakeHashProvider: FakeHashProvider;
   let loginUseCase: LoginUseCase;
   let hashedPassword: string;
 
   beforeEach(async () => {
     fakeUserRepository = new FakeUserRepository();
-    loginUseCase = new LoginUseCase(fakeUserRepository);
+    fakeHashProvider = new FakeHashProvider();
+    loginUseCase = new LoginUseCase(fakeUserRepository, fakeHashProvider);
     hashedPassword = await hash('123456', 8);
   });
 
@@ -22,7 +25,7 @@ describe('AuthenticateUser', () => {
       firstName: 'test',
       lastName: 'test',
       email: 'test@example.com',
-      password: hashedPassword,
+      password: '123456',
     });
 
     const result = await loginUseCase.execute('test@example.com', '123456');
