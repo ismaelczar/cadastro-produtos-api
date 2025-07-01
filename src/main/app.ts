@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 
-import '@shared/infra/http/providers/typeorm';
+import '@shared/providers/typeorm/';
 import { handleError } from './http/middlewares/handleError';
 
 import { usersRouter } from './routes/users.routes';
