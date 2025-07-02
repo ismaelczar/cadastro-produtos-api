@@ -2,10 +2,10 @@ import 'reflect-metadata';
 import { FakeProductRepository } from '@modules/products/infra/fakes/FakeProductRepository';
 import { ListProductsUseCase } from './ListProductsUseCase';
 
-describe('ListProducts', () => {
-  let fakeRepositoryProducts: FakeProductRepository;
-  let listProductsUseCase: ListProductsUseCase;
+let fakeRepositoryProducts: FakeProductRepository;
+let listProductsUseCase: ListProductsUseCase;
 
+describe('ListProducts', () => {
   beforeEach(() => {
     fakeRepositoryProducts = new FakeProductRepository();
     listProductsUseCase = new ListProductsUseCase(fakeRepositoryProducts);

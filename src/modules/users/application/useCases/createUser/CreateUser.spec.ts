@@ -5,12 +5,12 @@ import { User } from '@modules/users/domain/entities/user';
 import { AppError } from '@shared/core/errors/AppError';
 import { FakeHashProvider } from '@modules/users/infra/fakes/FakeHashProvider';
 
-describe('CreateUser', () => {
-  let fakeUserRepository: FakeUserRepository;
-  let fakeHashProvider: FakeHashProvider;
-  let createUserUseCase: CreateUserUseCase;
-  let fakeUser: Omit<User, 'id'>;
+let fakeUserRepository: FakeUserRepository;
+let fakeHashProvider: FakeHashProvider;
+let createUserUseCase: CreateUserUseCase;
+let fakeUser: Omit<User, 'id'>;
 
+describe('CreateUser', () => {
   beforeEach(() => {
     fakeUserRepository = new FakeUserRepository();
     fakeHashProvider = new FakeHashProvider();

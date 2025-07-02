@@ -4,11 +4,11 @@ import { ListUserUseCase } from './ListUserUseCase';
 import { User } from '@modules/users/domain/entities/user';
 import { AppError } from '@shared/core/errors/AppError';
 
-describe('ListUsers', () => {
-  let fakeUserRepository: FakeUserRepository;
-  let listUserUseCase: ListUserUseCase;
-  let fakeUser: Omit<User, 'id'>;
+let fakeUserRepository: FakeUserRepository;
+let listUserUseCase: ListUserUseCase;
+let fakeUser: Omit<User, 'id'>;
 
+describe('ListUsers', () => {
   beforeEach(() => {
     fakeUserRepository = new FakeUserRepository();
     listUserUseCase = new ListUserUseCase(fakeUserRepository);

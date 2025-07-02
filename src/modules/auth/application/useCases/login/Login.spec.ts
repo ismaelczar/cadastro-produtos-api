@@ -5,12 +5,12 @@ import { FakeUserRepository } from '@modules/auth/domain/repositories/fakes/Fake
 import { AppError } from '@shared/core/errors/AppError';
 import { FakeHashProvider } from '@modules/users/infra/fakes/FakeHashProvider';
 
-describe('AuthenticateUser', () => {
-  let fakeUserRepository: FakeUserRepository;
-  let fakeHashProvider: FakeHashProvider;
-  let loginUseCase: LoginUseCase;
-  let hashedPassword: string;
+let fakeUserRepository: FakeUserRepository;
+let fakeHashProvider: FakeHashProvider;
+let loginUseCase: LoginUseCase;
+let hashedPassword: string;
 
+describe('AuthenticateUser', () => {
   beforeEach(async () => {
     fakeUserRepository = new FakeUserRepository();
     fakeHashProvider = new FakeHashProvider();

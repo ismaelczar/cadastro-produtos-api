@@ -27,13 +27,6 @@ usersRouter.get(
 
 usersRouter.post('/', createUserController.handle.bind(createUserController));
 
-usersRouter.post(
-  '/forgot-password',
-  sendForgotPasswordMailController.handle.bind(
-    sendForgotPasswordMailController,
-  ),
-);
-
 usersRouter.patch(
   '/password',
   ensureAuthenticated,
@@ -51,4 +44,11 @@ usersRouter.delete(
   '/:id',
   ensureAuthenticated,
   deleteUserController.handle.bind(deleteUserController),
+);
+
+usersRouter.post(
+  '/forgot-password',
+  sendForgotPasswordMailController.handle.bind(
+    sendForgotPasswordMailController,
+  ),
 );

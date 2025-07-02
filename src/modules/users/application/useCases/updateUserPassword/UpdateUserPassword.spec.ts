@@ -5,11 +5,11 @@ import { UpdateUserPasswordUseCase } from './UpdateUserPasswordUseCase';
 import { User } from '@modules/users/domain/entities/user';
 import { AppError } from '@shared/core/errors/AppError';
 
-describe('UpdatePasswordUser', () => {
-  let fakeUserRepository: FakeUserRepository;
-  let updatedPasswordUserUseCase: UpdateUserPasswordUseCase;
-  let fakeUser: User;
+let fakeUserRepository: FakeUserRepository;
+let updatedPasswordUserUseCase: UpdateUserPasswordUseCase;
+let fakeUser: User;
 
+describe('UpdatePasswordUser', () => {
   beforeEach(async () => {
     fakeUserRepository = new FakeUserRepository();
     updatedPasswordUserUseCase = new UpdateUserPasswordUseCase(

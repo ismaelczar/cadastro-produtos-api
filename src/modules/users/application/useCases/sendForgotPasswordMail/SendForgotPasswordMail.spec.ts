@@ -4,11 +4,11 @@ import { SendForgotPasswordMailUseCase } from './SendForgotPasswordMailUseCase';
 import { FakeMailProvider } from '@modules/users/infra/fakes/FakeMailProdiver';
 import { AppError } from '@shared/core/errors/AppError';
 
-describe('SendForgotPasswordMail', () => {
-  let fakeUserRepository: FakeUserRepository;
-  let fakeMailProvider: FakeMailProvider;
-  let sendForgotPasswordMailUseCase: SendForgotPasswordMailUseCase;
+let fakeUserRepository: FakeUserRepository;
+let fakeMailProvider: FakeMailProvider;
+let sendForgotPasswordMailUseCase: SendForgotPasswordMailUseCase;
 
+describe('SendForgotPasswordMail', () => {
   beforeEach(() => {
     fakeUserRepository = new FakeUserRepository();
     fakeMailProvider = new FakeMailProvider();

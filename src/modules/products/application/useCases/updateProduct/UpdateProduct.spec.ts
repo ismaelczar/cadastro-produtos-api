@@ -4,12 +4,12 @@ import { UpdateProductUseCase } from './UpdateProductUseCase';
 import { Product } from '@modules/products/domain/entities/products';
 import { AppError } from '@shared/core/errors/AppError';
 
-describe('UpdateProduct', () => {
-  let fakeProductRepository: FakeProductRepository;
-  let updateProductUseCase: UpdateProductUseCase;
-  let uuidFake: string;
-  let product: Product;
+let fakeProductRepository: FakeProductRepository;
+let updateProductUseCase: UpdateProductUseCase;
+let uuidFake: string;
+let product: Product;
 
+describe('UpdateProduct', () => {
   beforeEach(() => {
     fakeProductRepository = new FakeProductRepository();
     updateProductUseCase = new UpdateProductUseCase(fakeProductRepository);

@@ -4,11 +4,11 @@ import { UpdateUserAvatarUseCase } from './UpdateUserAvatarUseCase';
 import { FakeStorageProvider } from '@modules/users/infra/fakes/FakeStorageProvider';
 import { AppError } from '@shared/core/errors/AppError';
 
-describe('UpdateUserAvatar', () => {
-  let fakeUserRepository: FakeUserRepository;
-  let updateUserAvatarUseCase: UpdateUserAvatarUseCase;
-  let fakeStorageProvider: FakeStorageProvider;
+let fakeUserRepository: FakeUserRepository;
+let updateUserAvatarUseCase: UpdateUserAvatarUseCase;
+let fakeStorageProvider: FakeStorageProvider;
 
+describe('UpdateUserAvatar', () => {
   beforeEach(() => {
     fakeUserRepository = new FakeUserRepository();
     fakeStorageProvider = new FakeStorageProvider();

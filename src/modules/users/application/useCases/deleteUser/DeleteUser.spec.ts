@@ -4,11 +4,11 @@ import { DeleteUserUseCase } from './DeleteUserUseCase';
 import { User } from '@modules/users/domain/entities/user';
 import { AppError } from '@shared/core/errors/AppError';
 
-describe('RemoveUser', () => {
-  let fakeUserRepository: FakeUserRepository;
-  let deleteUserUseCase: DeleteUserUseCase;
-  let fakeUser: User;
+let fakeUserRepository: FakeUserRepository;
+let deleteUserUseCase: DeleteUserUseCase;
+let fakeUser: User;
 
+describe('RemoveUser', () => {
   beforeEach(() => {
     fakeUserRepository = new FakeUserRepository();
     deleteUserUseCase = new DeleteUserUseCase(fakeUserRepository);

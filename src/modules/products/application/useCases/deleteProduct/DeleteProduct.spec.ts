@@ -3,11 +3,11 @@ import { FakeProductRepository } from '@modules/products/infra/fakes/FakeProduct
 import { DeleteProductUseCase } from './DeleteProductUseCase';
 import { AppError } from '@shared/core/errors/AppError';
 
-describe('DeleteProduct', () => {
-  let fakeProductRepository: FakeProductRepository;
-  let deleteProductUseCase: DeleteProductUseCase;
-  let uuidFake: string;
+let fakeProductRepository: FakeProductRepository;
+let deleteProductUseCase: DeleteProductUseCase;
+let uuidFake: string;
 
+describe('DeleteProduct', () => {
   beforeEach(() => {
     fakeProductRepository = new FakeProductRepository();
     deleteProductUseCase = new DeleteProductUseCase(fakeProductRepository);
