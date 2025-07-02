@@ -7,6 +7,7 @@ import { ensureAuthenticated } from 'main/http/middlewares/ensureAuthenticated';
 import { UpdatedPasswordUserController } from '@modules/users/application/useCases/updateUserPassword/UpdateUserPasswordController';
 import { UpdateUserAvatarController } from '@modules/users/application/useCases/updateUserAvatar/UpdateUserAvatarController';
 import uploadConfig from '@shared/config/upload';
+import { SendForgotPasswordMailController } from '@modules/users/application/useCases/sendForgotPasswordMail/SendForgotPasswordMailController';
 
 export const usersRouter = Router();
 const upload = multer(uploadConfig);
@@ -16,6 +17,7 @@ const listUserController = new ListUserController();
 const deleteUserController = new DeleteUserController();
 const updateUserPasswordController = new UpdatedPasswordUserController();
 const updateUserAvatar = new UpdateUserAvatarController();
+const sendForgotPasswordMailController = new SendForgotPasswordMailController();
 
 usersRouter.get(
   '/',
@@ -25,8 +27,15 @@ usersRouter.get(
 
 usersRouter.post('/', createUserController.handle.bind(createUserController));
 
+usersRouter.post(
+  '/forgot-password',
+  sendForgotPasswordMailController.handle.bind(
+    sendForgotPasswordMailController,
+  ),
+);
+
 usersRouter.patch(
-  '/',
+  '/password',
   ensureAuthenticated,
   updateUserPasswordController.handle.bind(updateUserPasswordController),
 );
