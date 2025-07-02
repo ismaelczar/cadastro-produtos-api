@@ -1,8 +1,8 @@
 import 'reflect-metadata';
 import { hash } from 'bcrypt';
-import { FakeUserRepository } from '@modules/auth/domain/repositories/fakes/FakeUserRepository';
+import { FakeUserRepository } from '@modules/users/infra/fakes/FakeUserRepository';
 import { UpdateUserPasswordUseCase } from './UpdateUserPasswordUseCase';
-import { User } from '@modules/users/domain/entities/user';
+import { User } from '@modules/users/domain/entities/User';
 import { AppError } from '@shared/core/errors/AppError';
 
 let fakeUserRepository: FakeUserRepository;

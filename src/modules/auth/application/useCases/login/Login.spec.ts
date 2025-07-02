@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { hash } from 'bcrypt';
 import { LoginUseCase } from './LoginUseCase';
-import { FakeUserRepository } from '@modules/auth/domain/repositories/fakes/FakeUserRepository';
+import { FakeUserRepository } from '@modules/users/infra/fakes/FakeUserRepository';
 import { AppError } from '@shared/core/errors/AppError';
 import { FakeHashProvider } from '@modules/users/infra/fakes/FakeHashProvider';
 

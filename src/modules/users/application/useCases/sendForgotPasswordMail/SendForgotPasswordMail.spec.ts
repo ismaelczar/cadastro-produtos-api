@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { FakeUserRepository } from '@modules/auth/domain/repositories/fakes/FakeUserRepository';
+import { FakeUserRepository } from '@modules/users/infra/fakes/FakeUserRepository';
 import { SendForgotPasswordMailUseCase } from './SendForgotPasswordMailUseCase';
 import { FakeMailProvider } from '@modules/users/infra/fakes/FakeMailProdiver';
 import { AppError } from '@shared/core/errors/AppError';

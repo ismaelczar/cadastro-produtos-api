@@ -1,4 +1,4 @@
-import { User } from '@modules/users/domain/entities/user';
+import { User } from '@modules/users/domain/entities/User';
 import { IUserRepository } from '../../domain/repositories/IUserRepository';
 
 import { getRepository } from 'typeorm';

@@ -1,6 +1,6 @@
 import { compare, hash } from 'bcrypt';
 
-import { User } from '@modules/users/domain/entities/user';
+import { User } from '@modules/users/domain/entities/User';
 import { IUserRepository } from '@modules/users/domain/repositories/IUserRepository';
 import { inject, injectable } from 'tsyringe';
 import { AppError } from '@shared/core/errors/AppError';

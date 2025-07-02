@@ -1,4 +1,4 @@
-import { User } from '@modules/users/domain/entities/user';
+import { User } from '@modules/users/domain/entities/User';
 import { IUserRepository } from '@modules/users/domain/repositories/IUserRepository';
 
 export class FakeUserRepository implements IUserRepository {
