@@ -1,0 +1,34 @@
+import { UserToken } from '@modules/users/domain/entities/UserToken';
+import { IUserRepository } from '@modules/users/domain/repositories/IUserRepository';
+import { IUserTokensRepository } from '@modules/users/domain/repositories/IUserTokensRepository';
+import { AppError } from '@shared/core/errors/AppError';
+import { inject, injectable } from 'tsyringe';
+
+@injectable()
+export class ResetPasswordUseCase {
+  constructor(
+    @inject('UserRepository')
+    private readonly userRepository: IUserRepository,
+
+    @inject('UserTokensRepository')
+    private readonly userTokensRepository: IUserTokensRepository,
+  ) {}
+
+  async execute(token: string, newPassword: string) {
+    const userToken = this.userTokensRepository.findByToken(token);
+
+    if (!userToken) {
+      throw new AppError('Token inexistente.', 401, 'validation');
+    }
+
+    const user = await this.userRepository.findById((await userToken).user_id);
+
+    if (!user) {
+      throw new AppError('Usuario inexistente.', 401, 'validation');
+    }
+
+    user.password = newPassword;
+
+    await this.userRepository.save(user);
+  }
+}

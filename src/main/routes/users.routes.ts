@@ -8,6 +8,7 @@ import { UpdatedPasswordUserController } from '@modules/users/application/useCas
 import { UpdateUserAvatarController } from '@modules/users/application/useCases/updateUserAvatar/UpdateUserAvatarController';
 import uploadConfig from '@shared/config/upload';
 import { SendForgotPasswordMailController } from '@modules/users/application/useCases/sendForgotPasswordMail/SendForgotPasswordMailController';
+import { ResetPasswordController } from '@modules/users/application/useCases/resetPassword/ResetPasswordController';
 
 export const usersRouter = Router();
 const upload = multer(uploadConfig);
@@ -18,6 +19,7 @@ const deleteUserController = new DeleteUserController();
 const updateUserPasswordController = new UpdatedPasswordUserController();
 const updateUserAvatar = new UpdateUserAvatarController();
 const sendForgotPasswordMailController = new SendForgotPasswordMailController();
+const resetPasswordController = new ResetPasswordController();
 
 usersRouter.get(
   '/',
@@ -51,4 +53,9 @@ usersRouter.post(
   sendForgotPasswordMailController.handle.bind(
     sendForgotPasswordMailController,
   ),
+);
+
+usersRouter.post(
+  '/reset-password',
+  resetPasswordController.handle.bind(resetPasswordController),
 );
