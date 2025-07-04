@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
+//TODO: Refatorar esse controller.
 import { RefreshUseCase } from './RefreshUseCase';
 
 export class RefreshController {
