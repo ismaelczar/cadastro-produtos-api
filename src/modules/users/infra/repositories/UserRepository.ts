@@ -1,17 +1,21 @@
 import { User } from '@modules/users/domain/entities/User';
 import { IUserRepository } from '../../domain/repositories/IUserRepository';
 
-import { getRepository } from 'typeorm';
+import { getRepository, Repository } from 'typeorm';
 
 export class UserRepository implements IUserRepository {
+  ormRepo: Repository<User>;
+
+  constructor() {
+    this.ormRepo = getRepository(User);
+  }
+
   async findAll(): Promise<User[]> {
-    return getRepository(User).find();
+    return this.ormRepo.find();
   }
 
   async findById(id: string): Promise<User | null> {
-    const ormRepository = getRepository(User);
-
-    const user = ormRepository.findOne({
+    const user = this.ormRepo.findOne({
       where: { id: id },
     });
 
@@ -19,8 +23,7 @@ export class UserRepository implements IUserRepository {
   }
 
   async findByEmail(email: string): Promise<User | null> {
-    const ormRepository = getRepository(User);
-    const user = ormRepository.findOne({
+    const user = this.ormRepo.findOne({
       where: { email: email },
     });
 
@@ -28,31 +31,24 @@ export class UserRepository implements IUserRepository {
   }
 
   async create(userData: User): Promise<User> {
-    const ormRepository = getRepository(User);
+    const user = this.ormRepo.create(userData);
 
-    const user = ormRepository.create(userData);
-
-    await ormRepository.save(user);
+    await this.ormRepo.save(user);
 
     return user;
   }
 
   async updatePassword(user: User): Promise<User> {
-    const ormRepository = getRepository(User);
-
-    const updatedUser = await ormRepository.save(user);
+    const updatedUser = await this.ormRepo.save(user);
 
     return updatedUser;
   }
 
   async remove(id: string): Promise<void> {
-    const ormRepository = getRepository(User);
-
-    await ormRepository.delete(id);
+    await this.ormRepo.delete(id);
   }
 
   async save(user: User): Promise<User> {
-    const ormRepository = getRepository(User);
-    return await ormRepository.save(user);
+    return await this.ormRepo.save(user);
   }
 }

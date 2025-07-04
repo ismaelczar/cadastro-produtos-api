@@ -1,33 +1,37 @@
-import { getRepository } from 'typeorm';
+import { getRepository, Repository } from 'typeorm';
 import { Product } from '@modules/products/domain/entities/products';
 import { IProductRepository } from '../../domain/repositories/IProductRepository';
 
 export class ProductRepository implements IProductRepository {
+  ormRepo: Repository<Product>;
+
+  constructor() {
+    this.ormRepo = getRepository(Product);
+  }
+
   async findAll(): Promise<Product[]> {
-    return await getRepository(Product).find();
+    return await this.ormRepo.find();
   }
 
   async findById(id: string): Promise<Product> {
-    return await getRepository(Product).findOne({
+    return await this.ormRepo.findOne({
       where: { id: id },
     });
   }
 
   async create(product: Product): Promise<Product> {
-    const ormRepo = getRepository(Product);
+    const newPoduct = this.ormRepo.create(product);
 
-    const newPoduct = ormRepo.create(product);
-
-    await ormRepo.save(newPoduct);
+    await this.ormRepo.save(newPoduct);
 
     return newPoduct;
   }
 
   async update(product: Partial<Product>): Promise<Product> {
-    return await getRepository(Product).save(product);
+    return await this.ormRepo.save(product);
   }
 
   async remove(id: string): Promise<void> {
-    await getRepository(Product).delete(id);
+    await this.ormRepo.delete(id);
   }
 }
