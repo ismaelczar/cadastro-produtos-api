@@ -1,4 +1,4 @@
-import { UserToken } from '../entities/UserToken';
+import { UserToken } from '../../../auth/domain/entities/UserToken';
 
 export interface IUserTokensRepository {
   generate(user_id: string): Promise<UserToken>;

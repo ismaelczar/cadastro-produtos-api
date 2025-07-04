@@ -3,7 +3,7 @@ import { FakeUserRepository } from '@modules/users/infra/fakes/FakeUserRepositor
 import { SendForgotPasswordMailUseCase } from './SendForgotPasswordMailUseCase';
 import { FakeMailProvider } from '@modules/users/infra/fakes/FakeMailProdiver';
 import { AppError } from '@shared/core/errors/AppError';
-import { FakeUserTokensRepository } from '@modules/users/infra/fakes/FakeUserTokensRepository';
+import { FakeUserTokensRepository } from '@modules/auth/infra/fakes/FakeUserTokensRepository';
 
 let fakeUserRepository: FakeUserRepository;
 let fakeMailProvider: FakeMailProvider;

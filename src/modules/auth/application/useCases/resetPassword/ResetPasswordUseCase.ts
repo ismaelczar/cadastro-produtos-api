@@ -1,6 +1,5 @@
-import { UserToken } from '@modules/users/domain/entities/UserToken';
 import { IUserRepository } from '@modules/users/domain/repositories/IUserRepository';
-import { IUserTokensRepository } from '@modules/users/domain/repositories/IUserTokensRepository';
+import { IUserTokensRepository } from '@modules/auth/domain/repositories/IUserTokensRepository';
 import { AppError } from '@shared/core/errors/AppError';
 import { inject, injectable } from 'tsyringe';
 

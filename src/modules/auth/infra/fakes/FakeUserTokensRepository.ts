@@ -1,6 +1,5 @@
-import { User } from '@modules/users/domain/entities/User';
-import { UserToken } from '@modules/users/domain/entities/UserToken';
-import { IUserTokensRepository } from '@modules/users/domain/repositories/IUserTokensRepository';
+import { UserToken } from '@modules/auth/domain/entities/UserToken';
+import { IUserTokensRepository } from '@modules/auth/domain/repositories/IUserTokensRepository';
 
 export class FakeUserTokensRepository implements IUserTokensRepository {
   userTokens: UserToken[] = [];

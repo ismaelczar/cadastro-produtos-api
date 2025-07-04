@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { FakeUserRepository } from '@modules/users/infra/fakes/FakeUserRepository';
-import { FakeUserTokensRepository } from '@modules/users/infra/fakes/FakeUserTokensRepository';
+import { FakeUserTokensRepository } from '@modules/auth/infra/fakes/FakeUserTokensRepository';
 import { ResetPasswordUseCase } from './ResetPasswordUseCase';
 
 let fakeUserRepository: FakeUserRepository;

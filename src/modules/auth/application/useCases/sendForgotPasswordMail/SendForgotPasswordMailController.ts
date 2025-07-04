@@ -9,8 +9,9 @@ export class SendForgotPasswordMailController {
     const useCase = container.resolve(SendForgotPasswordMailUseCase);
 
     try {
-      const result = await useCase.execute(email);
-      return res.status(200).json(result);
+      await useCase.execute(email);
+
+      return res.status(204).json();
     } catch (err) {
       return res.status(err.statusCode).json(err.message);
     }
