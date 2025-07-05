@@ -7,9 +7,9 @@
   "database": "postgres",
   "logging": true,
   "entities": ["src/modules/**/entities/*.ts"],
-  "migrations": ["src/shared/infra/http/providers/typeorm/migrations/*.ts"],
+  "migrations": ["src/shared/providers/typeorm/migrations/*.ts"],
   "cli": {
-    "migrationsDir": "src/shared/infra/http/providers/typeorm/migrations"
+    "migrationsDir": "src/shared/providers/typeorm/migrations"
   },
   "synchronize": false
 }
