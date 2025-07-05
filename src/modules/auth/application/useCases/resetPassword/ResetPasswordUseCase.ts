@@ -14,13 +14,13 @@ export class ResetPasswordUseCase {
   ) {}
 
   async execute(token: string, newPassword: string) {
-    const userToken = this.userTokensRepository.findByToken(token);
+    const userToken = await this.userTokensRepository.findByToken(token);
 
     if (!userToken) {
       throw new AppError('Token inexistente.', 401, 'validation');
     }
 
-    const user = await this.userRepository.findById((await userToken).user_id);
+    const user = await this.userRepository.findById(userToken.user_id);
 
     if (!user) {
       throw new AppError('Usuario inexistente.', 401, 'validation');
