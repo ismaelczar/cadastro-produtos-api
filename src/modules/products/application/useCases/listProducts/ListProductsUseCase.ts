@@ -13,10 +13,6 @@ export class ListProductsUseCase {
   async execute(): Promise<Product[]> {
     const products = await this.productRepository.findAll();
 
-    if (products.length === 0) {
-      throw new AppError('Internal server error', 500, 'infra');
-    }
-
     return products;
   }
 }
