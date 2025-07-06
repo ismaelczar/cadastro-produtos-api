@@ -24,8 +24,6 @@ export class SendForgotPasswordMailUseCase {
 
     const { token } = await this.userTokensRepository.generate(user.id);
 
-    //TODO: Deve enviar o e-mail de recuperação.
-    //TODO: O link enviado deve ter validade de 2h.
-    this.mailProvider.sendMail(email, 'descrição do e-mail');
+    this.mailProvider.sendMail(email, token);
   }
 }
