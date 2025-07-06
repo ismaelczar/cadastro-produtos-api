@@ -2,7 +2,6 @@ import { UserToken } from '@modules/auth/domain/entities/UserToken';
 import { IUserTokensRepository } from '@modules/auth/domain/repositories/IUserTokensRepository';
 import { getRepository, Repository } from 'typeorm';
 
-// TODO: CRIAR INJEÇÃO DESSE REPOSITORIO PARA OS CASOS DE USOS PARA RESET DE SENHA.
 export class UserTokensRepository implements IUserTokensRepository {
   ormRepo: Repository<UserToken>;
 
