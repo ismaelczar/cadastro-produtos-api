@@ -2,6 +2,7 @@ import { IUserRepository } from '@modules/users/domain/repositories/IUserReposit
 import { IUserTokensRepository } from '@modules/auth/domain/repositories/IUserTokensRepository';
 import { AppError } from '@shared/core/errors/AppError';
 import { inject, injectable } from 'tsyringe';
+import { IHashProvider } from '@shared/providers/hash/IHashProvider';
 
 @injectable()
 export class ResetPasswordUseCase {
@@ -11,6 +12,9 @@ export class ResetPasswordUseCase {
 
     @inject('UserTokensRepository')
     private readonly userTokensRepository: IUserTokensRepository,
+
+    @inject('HashProvider')
+    private readonly hashProvider: IHashProvider,
   ) {}
 
   async execute(token: string, newPassword: string) {
@@ -26,7 +30,9 @@ export class ResetPasswordUseCase {
       throw new AppError('Usuario inexistente.', 401, 'validation');
     }
 
-    user.password = newPassword;
+    const hashedPassword = await this.hashProvider.generateHash(newPassword);
+
+    user.password = hashedPassword;
 
     await this.userRepository.save(user);
   }

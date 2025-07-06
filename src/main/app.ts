@@ -17,6 +17,6 @@ app.use(cors());
 app.use('/auth', authRouter);
 app.use('/users', usersRouter);
 app.use('/products', productsRouter);
-app.use('/pasword', passwordRouter);
+app.use('/password', passwordRouter);
 
 app.use(handleError);

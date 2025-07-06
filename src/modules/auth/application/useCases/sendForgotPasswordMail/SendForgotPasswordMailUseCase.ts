@@ -22,10 +22,10 @@ export class SendForgotPasswordMailUseCase {
       throw new AppError('E-mail inválido', 409, 'validation');
     }
 
-    //TODO: Deve salvar no DB o token.
-    await this.userTokensRepository.generate(user.id);
+    const { token } = await this.userTokensRepository.generate(user.id);
 
     //TODO: Deve enviar o e-mail de recuperação.
+    //TODO: O link enviado deve ter validade de 2h.
     this.mailProvider.sendMail(email, 'descrição do e-mail');
   }
 }
