@@ -1,15 +1,23 @@
-import { FakeProductRepository } from '@modules/products/infra/fakes/FakeProductRepository';
 import 'reflect-metadata';
+import { FakeProductRepository } from '@modules/products/infra/fakes/FakeProductRepository';
 import { CreateProductUseCase } from './CreateProductUseCase';
 
+let fakeProductRepository: FakeProductRepository;
+let createProductUseCase: CreateProductUseCase;
+
 describe('CreateProduct', () => {
+  beforeEach(() => {
+    fakeProductRepository = new FakeProductRepository();
+    createProductUseCase = new CreateProductUseCase(fakeProductRepository);
+  });
+
   it('should be able to create a new product', async () => {
     const fakeProductRepository = new FakeProductRepository();
     const createProductUseCase = new CreateProductUseCase(
       fakeProductRepository,
     );
 
-    const product = {
+    const productData = {
       name: 'Cadeira Gamer Ultimate',
       price: 1299.9,
       description: 'Conforto premium para longas sessões de jogo.',
@@ -34,10 +42,10 @@ describe('CreateProduct', () => {
       shippingEstimate: '3 a 5 dias úteis',
     };
 
-    const result = await createProductUseCase.execute(product, []);
+    const result = await createProductUseCase.execute(productData, []);
 
     expect(result).toHaveProperty('description');
-    expect(result.name).toBe(product.name);
-    expect(result.price).toBe(product.price);
+    expect(result.name).toBe(productData.name);
+    expect(result.price).toBe(productData.price);
   });
 });

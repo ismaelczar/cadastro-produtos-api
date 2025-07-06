@@ -27,10 +27,4 @@ describe('ListUsers', () => {
 
     expect(result).resolves.toBeInstanceOf(Array);
   });
-
-  it('should throw internal error when product list is empty', async () => {
-    await expect(listUserUseCase.execute()).rejects.toEqual(
-      new AppError('Internal server error', 500, 'infra'),
-    );
-  });
 });

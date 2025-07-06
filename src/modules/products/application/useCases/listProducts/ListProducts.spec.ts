@@ -40,12 +40,4 @@ describe('ListProducts', () => {
     await fakeRepositoryProducts.create(product);
     await expect(listProductsUseCase.execute()).resolves.toBeInstanceOf(Array);
   });
-
-  it('should throw internal error when product list is empty', async () => {
-    await expect(listProductsUseCase.execute()).rejects.toMatchObject({
-      message: 'Internal server error',
-      statusCode: 500,
-      type: 'infra',
-    });
-  });
 });

@@ -33,7 +33,7 @@ describe('UpdateUserAvatar', () => {
     expect(result.avatar).toBe('new-avatar');
   });
 
-  it('should be able to update the user avatar', async () => {
+  it('should not be able to update avatar for a non-existing user', async () => {
     await fakeUserRepository.create({
       id: '1',
       email: 'test@example.com',

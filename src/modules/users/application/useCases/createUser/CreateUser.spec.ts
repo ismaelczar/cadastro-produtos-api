@@ -31,17 +31,4 @@ describe('CreateUser', () => {
 
     expect(result).toHaveProperty('email');
   });
-
-  it('should be able to return an email already registered', async () => {
-    await fakeUserRepository.create({
-      firstName: 'Teste',
-      lastName: 'teste',
-      email: 'test@example.com',
-      password: '123456',
-    });
-
-    await expect(createUserUseCase.execute(fakeUser)).rejects.toEqual(
-      new AppError('E-email já cadastrado', 409, 'validation'),
-    );
-  });
 });

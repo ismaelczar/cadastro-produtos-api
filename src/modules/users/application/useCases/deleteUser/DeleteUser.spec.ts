@@ -8,7 +8,7 @@ let fakeUserRepository: FakeUserRepository;
 let deleteUserUseCase: DeleteUserUseCase;
 let fakeUser: User;
 
-describe('RemoveUser', () => {
+describe('DeleteUser', () => {
   beforeEach(() => {
     fakeUserRepository = new FakeUserRepository();
     deleteUserUseCase = new DeleteUserUseCase(fakeUserRepository);
@@ -21,7 +21,7 @@ describe('RemoveUser', () => {
     };
   });
 
-  it('hould be able to remove a user', async () => {
+  it('should be able to remove a user', async () => {
     const fakeUserData = await fakeUserRepository.create(fakeUser);
 
     await expect(
