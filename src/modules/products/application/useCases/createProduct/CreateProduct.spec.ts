@@ -12,11 +12,6 @@ describe('CreateProduct', () => {
   });
 
   it('should be able to create a new product', async () => {
-    const fakeProductRepository = new FakeProductRepository();
-    const createProductUseCase = new CreateProductUseCase(
-      fakeProductRepository,
-    );
-
     const productData = {
       name: 'Cadeira Gamer Ultimate',
       price: 1299.9,

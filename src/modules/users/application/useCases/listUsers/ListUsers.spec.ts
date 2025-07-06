@@ -23,8 +23,8 @@ describe('ListUsers', () => {
   it('should be able to return a list users', async () => {
     await fakeUserRepository.create(fakeUser);
 
-    const result = listUserUseCase.execute();
+    const result = await listUserUseCase.execute();
 
-    expect(result).resolves.toBeInstanceOf(Array);
+    expect(result).toBeInstanceOf(Array);
   });
 });
