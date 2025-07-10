@@ -17,30 +17,30 @@ const deleteUserController = new DeleteUserController();
 const updateUserPasswordController = new UpdatedPasswordUserController();
 const updateUserAvatar = new UpdateUserAvatarController();
 
-//TODO: Criar validação para administradores.
-usersRouter.get(
-  '/',
-  ensureAuthenticated,
-  listUserController.handle.bind(listUserController),
-);
-
 usersRouter.post('/', createUserController.handle.bind(createUserController));
 
 usersRouter.patch(
-  '/password',
+  '/me/password',
   ensureAuthenticated,
   updateUserPasswordController.handle.bind(updateUserPasswordController),
 );
 
 usersRouter.patch(
-  '/avatar',
+  '/me/avatar',
   ensureAuthenticated,
   upload.single('avatar'),
   updateUserAvatar.handle.bind(updateUserAvatar),
 );
 
 usersRouter.delete(
-  '/:id',
+  '/me',
   ensureAuthenticated,
   deleteUserController.handle.bind(deleteUserController),
+);
+
+//Administradores
+usersRouter.get(
+  '/',
+  ensureAuthenticated,
+  listUserController.handle.bind(listUserController),
 );
