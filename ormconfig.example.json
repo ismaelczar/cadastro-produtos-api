@@ -1,0 +1,15 @@
+{
+  "type": "DIGITE_TYPE_AQUI",
+  "host": "DIGITE_HOST_AQUI",
+  "port": 0,
+  "username": "DIGITE_USERNAME_AQUI",
+  "password": "DIGITE_PASSWORD_AQUI",
+  "database": "DIGITE_DATABASE_AQUI",
+  "logging": true,
+  "entities": ["src/modules/**/entities/*.ts"],
+  "migrations": ["src/shared/providers/typeorm/migrations/*.ts"],
+  "cli": {
+    "migrationsDir": "src/shared/providers/typeorm/migrations"
+  },
+  "synchronize": false
+}

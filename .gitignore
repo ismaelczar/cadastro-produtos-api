@@ -55,3 +55,6 @@ debug/
 # Tmp
 bkp/
 bkp2/
+
+# ORM
+ormconfig.json
