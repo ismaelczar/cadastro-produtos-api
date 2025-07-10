@@ -7,6 +7,7 @@ import { ensureAuthenticated } from 'main/http/middlewares/ensureAuthenticated';
 import { UpdatedPasswordUserController } from '@modules/users/application/useCases/updateUserPassword/UpdateUserPasswordController';
 import { UpdateUserAvatarController } from '@modules/users/application/useCases/updateUserAvatar/UpdateUserAvatarController';
 import uploadConfig from '@shared/config/upload';
+import { ensureAdmin } from 'main/http/middlewares/ensureAdmin';
 
 export const usersRouter = Router();
 const upload = multer(uploadConfig);
@@ -42,5 +43,6 @@ usersRouter.delete(
 usersRouter.get(
   '/',
   ensureAuthenticated,
+  ensureAdmin,
   listUserController.handle.bind(listUserController),
 );

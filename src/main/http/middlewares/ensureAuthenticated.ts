@@ -4,6 +4,7 @@ import { verify } from 'jsonwebtoken';
 
 interface TokenPayload {
   sub: string;
+  role?: string;
 }
 
 export function ensureAuthenticated(
@@ -21,10 +22,11 @@ export function ensureAuthenticated(
 
   try {
     const decoded = verify(token, process.env.JWT_SECRET);
-    const { sub } = decoded as TokenPayload;
+    const { sub, role } = decoded as TokenPayload;
 
     req.user = {
       id: sub,
+      role: role,
     };
 
     return next();

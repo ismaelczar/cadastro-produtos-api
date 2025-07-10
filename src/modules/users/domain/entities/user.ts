@@ -22,4 +22,7 @@ export class User {
 
   @CreateDateColumn({ type: 'timestamp with time zone' })
   created_at?: Date;
+
+  @Column({ type: 'boolean' })
+  role?: boolean;
 }
