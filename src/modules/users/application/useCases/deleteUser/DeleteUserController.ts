@@ -5,7 +5,7 @@ import { AppError } from '@shared/core/errors/AppError';
 
 export class DeleteUserController {
   async handle(req: Request, res: Response): Promise<Response> {
-    const { id } = req.params;
+    const id = req.user.id;
     const useCase = container.resolve(DeleteUserUseCase);
 
     try {
