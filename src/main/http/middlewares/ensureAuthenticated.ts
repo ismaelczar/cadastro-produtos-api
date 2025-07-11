@@ -4,7 +4,7 @@ import { verify } from 'jsonwebtoken';
 
 interface TokenPayload {
   sub: string;
-  role?: string;
+  role?: boolean;
 }
 
 export function ensureAuthenticated(

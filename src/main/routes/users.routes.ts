@@ -10,6 +10,7 @@ import { UpdateUserAvatarController } from '@modules/users/application/useCases/
 import uploadConfig from '@shared/config/upload';
 import { ensureAdmin } from 'main/http/middlewares/ensureAdmin';
 import { validate } from 'main/http/middlewares/handleValidationErrors';
+import { ValidationErrors } from '@shared/core/errors/messages';
 
 export const usersRouter = Router();
 const upload = multer(uploadConfig);
@@ -20,25 +21,30 @@ const deleteUserController = new DeleteUserController();
 const updateUserPasswordController = new UpdatedPasswordUserController();
 const updateUserAvatar = new UpdateUserAvatarController();
 
+// TODO: Analisar forma de usar a propiedade role na criação do usuário.
 usersRouter.post(
   '/',
   [
     body('firstName')
       .notEmpty()
-      .withMessage('O Nome é obrigatório')
+      .withMessage(ValidationErrors.FIRSTNAME_REQUIRED)
       .isLength({ min: 3 })
-      .withMessage('Deve ter no minimo 3 caracters'),
+      .withMessage(ValidationErrors.FIRSTNAME_INVALID),
     body('lastName')
       .notEmpty()
-      .withMessage('O Sobrenome é obrigatório')
+      .withMessage(ValidationErrors.EMAIL_REQUIRED)
       .isLength({ min: 3 })
-      .withMessage('Deve ter no minimo 3 caracters'),
+      .withMessage(ValidationErrors.EMAIL_INVALID),
     body('email')
       .notEmpty()
-      .withMessage('O Email é obrigatório')
+      .withMessage(ValidationErrors.EMAIL_REQUIRED)
       .isEmail()
-      .withMessage('Deve ser fornecido um e-mail válido.'),
-    body('password').notEmpty().withMessage('A Senha é obrigatório'),
+      .withMessage(ValidationErrors.EMAIL_INVALID),
+    body('password')
+      .notEmpty()
+      .withMessage(ValidationErrors.PASSWORD_REQUIRED)
+      .isLength({ min: 3 })
+      .withMessage(ValidationErrors.PASSWORD_TOO_SHORT),
 
     validate,
   ],
@@ -50,11 +56,15 @@ usersRouter.patch(
   [
     body('email')
       .notEmpty()
-      .withMessage('O Email é obrigatório')
+      .withMessage(ValidationErrors.EMAIL_REQUIRED)
       .isEmail()
-      .withMessage('Deve ser fornecido um e-mail válido.'),
-    body('password').notEmpty().withMessage('A senha é obrigatória.'),
-    body('newPassword').notEmpty().withMessage('A nova senha é obrigatória.'),
+      .withMessage(ValidationErrors.EMAIL_INVALID),
+    body('password').notEmpty().withMessage(ValidationErrors.PASSWORD_REQUIRED),
+    body('newPassword')
+      .notEmpty()
+      .withMessage(ValidationErrors.PASSWORD_REQUIRED)
+      .isLength({ min: 3 })
+      .withMessage(ValidationErrors.PASSWORD_TOO_SHORT),
 
     validate,
   ],
@@ -64,7 +74,6 @@ usersRouter.patch(
 
 usersRouter.patch(
   '/me/avatar',
-  [body('avatar').notEmpty().withMessage('Avatar é obrigatório.'), validate],
   ensureAuthenticated,
   upload.single('avatar'),
   updateUserAvatar.handle.bind(updateUserAvatar),
