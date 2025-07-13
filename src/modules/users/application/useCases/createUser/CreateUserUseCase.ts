@@ -3,6 +3,7 @@ import { IUserRepository } from '@modules/users/domain/repositories/IUserReposit
 import { injectable, inject } from 'tsyringe';
 import { AppError } from '@shared/core/errors/AppError';
 import { IHashProvider } from '@shared/providers/hash/IHashProvider';
+import { instanceToInstance } from 'class-transformer';
 
 @injectable()
 export class CreateUserUseCase {
@@ -14,7 +15,13 @@ export class CreateUserUseCase {
     private readonly hashProvicer: IHashProvider,
   ) {}
 
-  async execute({ firstName, lastName, email, password }: Omit<User, 'id'>) {
+  async execute({
+    firstName,
+    lastName,
+    email,
+    password,
+    role,
+  }: Omit<User, 'id'>) {
     const emailAlreadyRegisteredt = await this.userRepository.findByEmail(
       email,
     );
@@ -25,17 +32,14 @@ export class CreateUserUseCase {
 
     const hashedPassword = await this.hashProvicer.generateHash(password);
 
-    const user = {
+    const user = await this.userRepository.create({
       firstName,
       lastName,
       email,
       password: hashedPassword,
-    };
+      role,
+    });
 
-    this.userRepository.create(user);
-
-    delete user.password;
-
-    return user;
+    return instanceToInstance(user);
   }
 }
