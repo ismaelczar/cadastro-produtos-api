@@ -13,10 +13,10 @@ export const ValidationErrors = {
   REFRESH_INVALID: { code: 'AUTH_006', message: 'Precisa ser do tipo UUID' },
 
   TOKEN_REQUIRED: {
-    code: 'AUTH_005',
+    code: 'AUTH_010',
     message: 'O Token é obrigatório',
   },
-  TOKEN_INVALID: { code: 'AUTH_006', message: 'Precisa ser do tipo UUID' },
+  TOKEN_INVALID: { code: 'AUTH_011', message: 'O Token precisa ser válido' },
 
   FIRSTNAME_REQUIRED: { code: 'AUTH_007', message: 'O Nome é obrigatório' },
   FIRSTNAME_INVALID: {

@@ -32,9 +32,9 @@ usersRouter.post(
       .withMessage(ValidationErrors.FIRSTNAME_INVALID),
     body('lastName')
       .notEmpty()
-      .withMessage(ValidationErrors.EMAIL_REQUIRED)
+      .withMessage(ValidationErrors.LAST_NAME)
       .isLength({ min: 3 })
-      .withMessage(ValidationErrors.EMAIL_INVALID),
+      .withMessage(ValidationErrors.FIRSTNAME_INVALID), // Pode criar uma validação específica para sobrenome se preferir
     body('email')
       .notEmpty()
       .withMessage(ValidationErrors.EMAIL_REQUIRED)
