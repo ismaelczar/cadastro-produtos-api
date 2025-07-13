@@ -12,12 +12,13 @@ export class RedisProvider implements IRedisProvider {
     this.client.set(key, value);
   }
 
-  async revocer(key: string): Promise<string | null> {
+  async revocer<T>(key: string): Promise<T | null> {
     const date = await this.client.get(key);
+
     if (!date) {
       return null;
     }
-    return date;
+    return JSON.parse(date) as T;
   }
 
   async delete(key: string): Promise<void> {
