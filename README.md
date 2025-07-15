@@ -1,139 +1,196 @@
-# API de Cadastro de Produtos 🚀
+🚀 API de Cadastro de Produtos
+=================================
 
-Esta é uma API RESTful desenvolvida em Node.js e TypeScript para gerenciar o cadastro de produtos. O projeto segue princípios de arquitetura limpa e utiliza um conjunto de tecnologias modernas para garantir escalabilidade, manutenibilidade e testabilidade.
+Este repositório contém uma API REST para cadastro e gerenciamento de produtos e usuários, construída com Node.js, Express, TypeScript e seguindo os princípios da Clean Architecture.
 
----
+Desenvolvido por **Ismael Czar** ([@ismaelczar](https://github.com/ismaelczar))
 
-## Funcionalidades ✨
+📌 Visão Geral
+----------------
 
-- CRUD completo de produtos.
-- Sistema de autenticação de usuários com JWT (JSON Web Tokens).
-- Validação de dados de entrada.
-- Upload de imagens de produtos.
-- Envio de e-mails transacionais.
+Este projeto foi desenvolvido para ser uma base sólida e escalável para aplicações de e-commerce ou catálogos, com as seguintes características:
 
----
+*   **Segurança**: Autenticação de rotas com JWT.
+*   **Cache**: Invalidação e cache de dados com Redis para otimizar a performance.
+*   **Banco de Dados**: Integração com PostgreSQL via TypeORM, incluindo sistema de migrations.
+*   **Arquitetura Limpa (Clean Architecture)**: Separação clara de responsabilidades entre domínio, aplicação e infraestrutura.
+*   **Injeção de Dependência**: Utilização de `tsyringe` para desacoplamento e facilidade nos testes.
+*   **Uploads**: Gerenciamento de upload de avatares de usuários com `multer`.
+*   **Envio de E-mails**: Provider para envio de e-mails (configurado com Ethereal para desenvolvimento).
+*   **Validação**: Validação robusta de payloads de entrada com `express-validator` e `class-validator`.
+*   **Testes Automatizados**: Suíte de testes unitários e de integração com Jest.
 
-## Tecnologias Utilizadas 🛠️
+🗂️ Estrutura de Pastas
+-------------------------
 
-- **Node.js**: Ambiente de execução JavaScript.
-- **TypeScript**: Superset do JavaScript que adiciona tipagem estática.
-- **Express**: Framework para construção de APIs REST.
-- **TypeORM**: ORM (Object-Relational Mapper) para interação com o banco de dados.
-- **PostgreSQL**: Banco de dados relacional utilizado no projeto.
-- **TSyringe**: Biblioteca para injeção de dependência.
-- **Jest**: Framework para testes automatizados.
-- **Class-validator / Class-transformer**: Para validação e transformação de DTOs.
-- **JSON Web Token (JWT)**: Para a implementação de autenticação stateless.
-- **Bcrypt**: Para hashing de senhas.
-- **Multer**: Middleware para upload de arquivos.
-- **Nodemailer**: Para o envio de e-mails.
-- **Handlebars**: Template engine para os e-mails.
-- **ESLint / Prettier**: Para garantir a qualidade e a padronização do código.
+O projeto segue uma estrutura baseada em Clean Architecture, organizada da seguinte forma:
 
----
+```
+.
+├── src
+│   ├── main                  # Configuração do servidor, rotas e middlewares
+│   │   ├── http
+│   │   │   ├── middlewares   # Middlewares (auth, admin, upload)
+│   │   │   └── routes        # Definição das rotas da API
+│   │   ├── server.ts         # Ponto de entrada da aplicação
+│   │   └── app.ts            # Configuração da aplicação Express
+│   │
+│   ├── modules               # Domínios da aplicação (users, products, auth)
+│   │   └── users
+│   │       ├── application   # Casos de Uso (Use Cases) e Controllers
+│   │       ├── domain        # Entidades, DTOs e Repositórios (interfaces)
+│   │       └── infra         # Implementação dos repositórios e entidades do TypeORM
+│   │
+│   └── shared                # Código compartilhado entre módulos
+│       ├── container         # Configuração da injeção de dependência (tsyringe)
+│       ├── core              # Classes e erros base
+│       ├── providers         # Implementações de provedores (Cache, Mail, Storage, etc.)
+│       └── infra             # Configuração de banco de dados (TypeORM) e migrations
+│
+├── .env.example              # Arquivo de exemplo para variáveis de ambiente
+├── jest.config.js            # Configuração do Jest
+└── package.json
+```
 
-## Estrutura do Projeto 📂
+🛠️ Requisitos
+--------------
 
-O projeto é organizado de forma modular e segue uma arquitetura em camadas, separando as responsabilidades:
+*   Node.js v18+
+*   NPM ou Yarn
+*   Docker (Recomendado para rodar as dependências)
+*   PostgreSQL
+*   Redis
 
-- `src/modules`: Cada módulo da aplicação (ex: `products`, `users`) possui seus próprios componentes.
-  - `application`: Contém os casos de uso (Use Cases) e a lógica de aplicação.
-  - `domain`: Contém as entidades e os DTOs (Data Transfer Objects).
-  - `infra`: Contém a implementação da infraestrutura, como repositórios do TypeORM e rotas do Express.
-- `src/shared`: Contém código compartilhado por toda a aplicação, como o core da aplicação, tratamento de erros e configurações.
+⚙️ Instalação
+----------------
 
----
-
-## Pré-requisitos 📝
-
-Antes de começar, você vai precisar ter instalado em sua máquina:
-- Node.js (versão 18 ou superior)
-- Yarn ou npm
-- Docker (recomendado para rodar o banco de dados)
-
----
-
-## Como Rodar o Projeto ▶️
-
-1.  **Clone o repositório:**
+1.  Clone o repositório:
     ```bash
     git clone https://github.com/ismaelczar/cadastro-produtos-api.git
+    ```
+
+2.  Acesse a pasta do projeto:
+    ```bash
     cd cadastro-produtos-api
     ```
 
-2.  **Instale as dependências:**
+3.  Instale as dependências:
     ```bash
     npm install
-    # ou
-    yarn install
     ```
 
-3.  **Configure o ambiente:**
-    - Renomeie o arquivo `.env.example` para `.env`.
-    - Preencha as variáveis de ambiente no arquivo `.env` com as suas configurações (banco de dados, segredo do JWT, etc.).
-
-4.  **Configure o TypeORM:**
-    - Ao finalizar a instalação, será necessário **renomear** o arquivo `ormconfig.example.json` para `ormconfig.json`.
-    - Em seguida, edite o `ormconfig.json` e substitua as informações necessárias (type, host, port, username, password, database) com os dados do seu banco de dados.
-    ```json
-    {
-      "type": "DIGITE_TYPE_AQUI",
-      "host": "DIGITE_HOST_AQUI",
-      "port": 0,
-      "username": "DIGITE_USERNAME_AQUI",
-      "password": "DIGITE_PASSWORD_AQUI",
-      "database": "DIGITE_DATABASE_AQUI",
-      "entities": ["./src/modules/**/infra/typeorm/entities/*.ts"],
-      "migrations": ["./src/shared/infra/typeorm/migrations/*.ts"],
-      "cli": {
-        "migrationsDir": "./src/shared/infra/typeorm/migrations"
-      }
-    }
-    ```
-
-5.  **Inicie o banco de dados (exemplo com Docker):**
+4.  Crie o arquivo de variáveis de ambiente a partir do exemplo:
     ```bash
-    docker run --name postgres-produtos -e POSTGRES_PASSWORD=docker -e POSTGRES_DB=produtos -p 5432:5432 -d postgres
+    cp .env.example .env
     ```
-    > **Nota:** Certifique-se de que as credenciais no comando acima correspondem às do seu arquivo `.env` e `ormconfig.json`.
 
-6.  **Execute as migrations do banco de dados:**
-    Este comando criará as tabelas necessárias na sua base de dados.
+5.  Configure as variáveis no arquivo `.env` com suas credenciais (JWT, Redis, PostgreSQL).
+
+▶️ Executando o Projeto
+------------------------
+
+### Desenvolvimento
+
+Para rodar o servidor em modo de desenvolvimento com watch mode:
+
+```bash
+npm run dev
+```
+
+O servidor estará disponível em `http://localhost:3333`.
+
+### Produção
+
+Para build e execução em ambiente de produção:
+
+```bash
+# 1. Compilar o código TypeScript para JavaScript
+npm run build
+
+# 2. Iniciar o servidor
+npm start
+```
+
+🗃️ Migrations (TypeORM)
+-----------------------
+
+O projeto utiliza TypeORM para gerenciar o schema do banco de dados.
+
+*   **Criar uma nova migration:**
+    ```bash
+    npm run migrate:create -- --name=NomeDaSuaMigration
+    ```
+    *(O `--` é importante para passar o nome como argumento para o script subjacente).*
+
+*   **Executar as migrations pendentes:**
     ```bash
     npm run migrate:up
     ```
 
-7.  **Inicie a aplicação:**
+*   **Reverter a última migration executada:**
     ```bash
-    npm run dev
+    npm run migrate:down
     ```
 
-O servidor estará rodando em `http://localhost:3333`.
+🧪 Testes
+----------
 
----
+Para executar a suíte de testes automatizados com Jest:
 
-## Scripts Disponíveis ⚙️
+```bash
+npm run test
+```
 
-- `npm run dev`: Inicia a aplicação em modo de desenvolvimento com hot-reload.
-- `npm run build`: Compila o código TypeScript para JavaScript.
-- `npm run start`: Inicia a aplicação em modo de produção (requer a execução do `build` antes).
-- `npm test`: Executa os testes automatizados com Jest.
-- `npm run migrate:up`: Aplica as migrations pendentes no banco de dados.
-- `npm run migrate:down`: Reverte a última migration aplicada.
+O Jest está configurado para gerar relatórios de cobertura de código na pasta `coverage/`.
 
----
+📥 Uploads
+-----------
 
-## Endpoints da API (Exemplos) 🌐
+O sistema suporta upload de arquivos, atualmente implementado para o avatar do usuário.
 
-A API possui endpoints para gerenciar produtos. Você precisará de um token de autenticação para acessar a maioria deles.
+*   **Storage**: Os arquivos são salvos localmente na pasta `tmp` (usando `DiskStorageProvider`). Para produção, é recomendado substituir por um provedor de armazenamento em nuvem (ex: S3, Google Cloud Storage).
+*   **Endpoint**: `PATCH /users/me/avatar`
 
-- `POST /users` - Cria um novo usuário.
-- `POST /sessions` - Autentica um usuário e retorna um token JWT.
-- `GET /products` - Lista todos os produtos.
-- `POST /products` - Cria um novo produto (requer autenticação).
-- `DELETE /products/:id` - Deleta um produto (requer autenticação).
+🗄️ Cache com Redis
+-------------------
 
----
+A aplicação utiliza Redis para cache de dados, visando melhorar a performance de consultas frequentes.
 
-Desenvolvido por Ismael Cézar.
+*   **Provider**: `RedisProvider` implementa a interface `IRedisProvider`.
+*   **Estratégia**: A invalidação do cache é feita manualmente nos casos de uso que alteram os dados. Por exemplo, ao criar um novo produto, o cache da lista de produtos (`products-list`) é removido.
+
+🔌 Conectores e Serviços (Providers)
+--------------------------------------
+
+O projeto utiliza injeção de dependência com `tsyringe` para gerenciar os provedores de serviços externos. As seguintes abstrações já estão configuradas em `src/shared/container`:
+
+*   **IUserRepository**: Repositório para operações com usuários.
+*   **IProductRepository**: Repositório para operações com produtos.
+*   **IUserTokensRepository**: Repositório para gerenciar refresh tokens de usuários.
+*   **IHashProvider**: Provedor para hashing de senhas (usando `bcrypt`).
+*   **IMailProvider**: Provedor para envio de e-mails (usando `Ethereal` para desenvolvimento).
+*   **IRedisProvider**: Provedor para interação com o Redis.
+*   **IStorageProvider**: Provedor para armazenamento de arquivos (usando disco local).
+
+📚 Arquitetura Clean
+---------------------
+
+A estrutura do projeto é fortemente baseada nos princípios da **Clean Architecture**, promovendo:
+
+*   **Independência de Frameworks**: O núcleo de negócio não depende de detalhes de frameworks (Express, TypeORM).
+*   **Testabilidade**: As regras de negócio podem ser testadas sem depender de UI, banco de dados ou qualquer elemento externo.
+*   **Independência de UI**.
+*   **Independência de Banco de Dados**.
+
+A organização em `modules` com as camadas `domain`, `application` e `infra` reflete essa separação de responsabilidades.
+
+📬 Contato
+-----------
+
+Desenvolvido por **Ismael Czar** - GitHub
+
+🪪 Licença
+-------------
+
+Distribuído sob a Licença ISC.
+
