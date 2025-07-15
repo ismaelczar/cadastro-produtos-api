@@ -4,7 +4,7 @@ import { CreateProductController } from '@modules/products/application/useCases/
 import { UpdatedProductController } from '@modules/products/application/useCases/updateProduct/UpdateProductController';
 import { DeleteProductController } from '@modules/products/application/useCases/deleteProduct/DeleteProductController';
 import { ensureAuthenticated } from 'main/http/middlewares/ensureAuthenticated';
-import uploadConfig from '@shared/config/upload';
+import uploadConfig from '@main/http/middlewares/uploadMiddleware';
 import multer from 'multer';
 import { param } from 'express-validator';
 import { validate } from 'main/http/middlewares/handleValidationErrors';

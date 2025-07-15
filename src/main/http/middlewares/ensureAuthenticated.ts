@@ -22,11 +22,10 @@ export function ensureAuthenticated(
 
   try {
     const decoded = verify(token, process.env.JWT_SECRET);
-    const { sub, role } = decoded as TokenPayload;
+    const { sub } = decoded as TokenPayload;
 
     req.user = {
       id: sub,
-      role: role,
     };
 
     return next();

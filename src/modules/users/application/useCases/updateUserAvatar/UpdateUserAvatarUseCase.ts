@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs';
-import uploadConfig from '@shared/config/upload';
+import uploadConfig from '@main/http/middlewares/uploadMiddleware';
 import { IUserRepository } from '@modules/users/domain/repositories/IUserRepository';
 import { AppError } from '@shared/core/errors/AppError';
 import { inject, injectable } from 'tsyringe';

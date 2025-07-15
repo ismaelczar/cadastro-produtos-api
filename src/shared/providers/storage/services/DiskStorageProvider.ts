@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import uploadConfig from '@shared/config/upload';
+import uploadConfig from '@main/http/middlewares/uploadMiddleware';
 import { IStorageProvider } from '../IStorageProvider';
 
 export class DiskStorageProvider implements IStorageProvider {

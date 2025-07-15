@@ -33,7 +33,7 @@ export class CreateProductUseCase {
       shippingEstimate: data.shippingEstimate,
     };
 
-    await this.redisProvider.delete('products-list');
+    await this.redisProvider.deleteChash('products-list');
 
     return await this.productRepository.create(product);
   }

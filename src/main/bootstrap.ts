@@ -5,7 +5,7 @@ import '../shared/providers/typeorm';
 
 import app from './app';
 import { handleError } from './http/middlewares/handleError';
-import { routes } from './routes';
+import { routes } from './http/routes';
 
 export async function bootstrap() {
   app.use(routes);

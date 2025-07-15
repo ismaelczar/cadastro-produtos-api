@@ -14,11 +14,15 @@ export class ListProductsUseCase {
   ) {}
 
   async execute(): Promise<Product[]> {
-    let products = await this.redisProvider.revocer<Product[]>('products-list');
+    let products = await this.redisProvider.get<Product[]>('products-list');
 
     if (!products) {
       products = await this.productRepository.findAll();
-      await this.redisProvider.save('products-list', JSON.stringify(products));
+      await this.redisProvider.setChash(
+        'products-list',
+        JSON.stringify(products),
+        60 * 60 * 24,
+      );
     }
 
     return products;

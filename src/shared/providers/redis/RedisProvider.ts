@@ -1,18 +1,23 @@
 import Redis, { Redis as RedisClient } from 'ioredis';
-import cashConfig from '@shared/config/cash';
+import cashConfig from '@shared/providers/redis/cashHelper';
 import { IRedisProvider } from './IRedisProvider';
 
 export class RedisProvider implements IRedisProvider {
   client: RedisClient;
+
   constructor() {
     this.client = new Redis(cashConfig.config.redis);
   }
 
-  async save(key: string, value: string): Promise<void> {
-    this.client.set(key, value);
+  async setChash(
+    key: string,
+    value: string,
+    ttlInSeconds = 300,
+  ): Promise<void> {
+    this.client.set(key, value, 'EX', ttlInSeconds);
   }
 
-  async revocer<T>(key: string): Promise<T | null> {
+  async get<T>(key: string): Promise<T | null> {
     const date = await this.client.get(key);
 
     if (!date) {
@@ -21,7 +26,7 @@ export class RedisProvider implements IRedisProvider {
     return JSON.parse(date) as T;
   }
 
-  async delete(key: string): Promise<void> {
+  async deleteChash(key: string): Promise<void> {
     await this.client.del(key);
   }
 }

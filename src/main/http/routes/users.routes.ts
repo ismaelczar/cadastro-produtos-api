@@ -7,7 +7,7 @@ import { DeleteUserController } from '@modules/users/application/useCases/delete
 import { ensureAuthenticated } from '@main/http/middlewares/ensureAuthenticated';
 import { UpdatedPasswordUserController } from '@modules/users/application/useCases/updateUserPassword/UpdateUserPasswordController';
 import { UpdateUserAvatarController } from '@modules/users/application/useCases/updateUserAvatar/UpdateUserAvatarController';
-import uploadConfig from '@shared/config/upload';
+import uploadConfig from '@main/http/middlewares/uploadMiddleware';
 import { ensureAdmin } from '@main/http/middlewares/ensureAdmin';
 import { validate } from '@main/http/middlewares/handleValidationErrors';
 import { ValidationErrors } from '@shared/core/errors/messages';
