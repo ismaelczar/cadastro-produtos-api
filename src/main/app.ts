@@ -1,14 +1,23 @@
-import express from 'express';
+import express, { Application } from 'express';
 import cors from 'cors';
 
-import '@shared/providers/typeorm/';
-import { handleError } from './http/middlewares/handleError';
-import { routes } from './routes';
+export class App {
+  private app: Application;
 
-export const app = express();
+  constructor() {
+    this.app = express();
+    this.setupMiddlewares();
+    this.getApp();
+  }
 
-app.use(express.json());
-app.use(cors());
+  private setupMiddlewares(): void {
+    this.app.use(express.json());
+    this.app.use(cors());
+  }
 
-app.use('/', routes);
-app.use(handleError);
+  public getApp(): Application {
+    return this.app;
+  }
+}
+
+export default new App().getApp();

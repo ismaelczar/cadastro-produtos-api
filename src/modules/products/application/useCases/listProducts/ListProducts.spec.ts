@@ -1,14 +1,20 @@
 import 'reflect-metadata';
 import { FakeProductRepository } from '@modules/products/infra/fakes/FakeProductRepository';
 import { ListProductsUseCase } from './ListProductsUseCase';
+import { RedisProvider } from '@shared/providers/redis/RedisProvider';
 
 let fakeRepositoryProducts: FakeProductRepository;
 let listProductsUseCase: ListProductsUseCase;
+let redisProvider: RedisProvider;
 
 describe('ListProducts', () => {
   beforeEach(() => {
     fakeRepositoryProducts = new FakeProductRepository();
-    listProductsUseCase = new ListProductsUseCase(fakeRepositoryProducts);
+    redisProvider = new RedisProvider();
+    listProductsUseCase = new ListProductsUseCase(
+      fakeRepositoryProducts,
+      redisProvider,
+    );
   });
 
   it('should be able to return a list of products', async () => {

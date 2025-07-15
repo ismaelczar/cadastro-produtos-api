@@ -1,14 +1,20 @@
 import 'reflect-metadata';
 import { FakeProductRepository } from '@modules/products/infra/fakes/FakeProductRepository';
 import { CreateProductUseCase } from './CreateProductUseCase';
+import { RedisProvider } from '@shared/providers/redis/RedisProvider';
 
 let fakeProductRepository: FakeProductRepository;
 let createProductUseCase: CreateProductUseCase;
+let redisProvider: RedisProvider;
 
 describe('CreateProduct', () => {
   beforeEach(() => {
     fakeProductRepository = new FakeProductRepository();
-    createProductUseCase = new CreateProductUseCase(fakeProductRepository);
+    redisProvider = new RedisProvider();
+    createProductUseCase = new CreateProductUseCase(
+      fakeProductRepository,
+      redisProvider,
+    );
   });
 
   it('should be able to create a new product', async () => {
