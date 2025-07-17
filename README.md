@@ -187,7 +187,7 @@ A organização em `modules` com as camadas `domain`, `application` e `infra` re
 📬 Contato
 -----------
 
-Desenvolvido por **Ismael Czar** - GitHub
+Desenvolvido por **Ismael Cezar** ([@ismaelczar](https://github.com/ismaelczar))
 
 🪪 Licença
 -------------
