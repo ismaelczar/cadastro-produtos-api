@@ -1,12 +1,14 @@
-import { getRepository, Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { Product } from '@modules/products/domain/entities/products';
 import { IProductRepository } from '../../domain/repositories/IProductRepository';
+import { inject, injectable } from 'tsyringe';
 
+@injectable()
 export class ProductRepository implements IProductRepository {
   ormRepo: Repository<Product>;
 
-  constructor() {
-    this.ormRepo = getRepository(Product);
+  constructor(@inject('DataSource') dataSource: DataSource) {
+    this.ormRepo = dataSource.getRepository(Product);
   }
 
   async findAll(): Promise<Product[]> {

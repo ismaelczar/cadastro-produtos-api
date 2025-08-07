@@ -1,3 +1,8 @@
-import { createConnection } from 'typeorm';
+import { DataSource } from 'typeorm';
+import ormConfig from './config/ormConfig';
 
-createConnection();
+export default async (): Promise<DataSource> => {
+  const config = ormConfig;
+
+  return await config.initialize();
+};

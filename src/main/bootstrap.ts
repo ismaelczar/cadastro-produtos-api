@@ -1,13 +1,13 @@
 import 'reflect-metadata';
 import 'dotenv/config';
-import '../shared/container';
-import '../shared/providers/typeorm';
 
 import app from './app';
 import { handleError } from './http/middlewares/handleError';
 import { routes } from './http/routes';
+import { registerSharedProviders } from '../shared/container';
 
 export async function bootstrap() {
+  app.use(registerSharedProviders);
   app.use(routes);
   app.use(handleError);
 

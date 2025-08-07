@@ -1,12 +1,14 @@
 import { UserToken } from '@modules/auth/domain/entities/UserToken';
 import { IUserTokensRepository } from '@modules/auth/domain/repositories/IUserTokensRepository';
-import { getRepository, Repository } from 'typeorm';
+import { inject, injectable } from 'tsyringe';
+import { DataSource, getRepository, Repository } from 'typeorm';
 
+@injectable()
 export class UserTokensRepository implements IUserTokensRepository {
   ormRepo: Repository<UserToken>;
 
-  constructor() {
-    this.ormRepo = getRepository(UserToken);
+  constructor(@inject('DataSource') dataSource: DataSource) {
+    this.ormRepo = dataSource.getRepository(UserToken);
   }
 
   async generate(user_id: string): Promise<UserToken> {

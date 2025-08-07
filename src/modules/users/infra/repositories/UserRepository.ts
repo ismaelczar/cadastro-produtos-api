@@ -1,13 +1,14 @@
 import { User } from '@modules/users/domain/entities/User';
 import { IUserRepository } from '../../domain/repositories/IUserRepository';
+import { inject, injectable } from 'tsyringe';
+import { DataSource, Repository } from 'typeorm';
 
-import { getRepository, Repository } from 'typeorm';
-
+@injectable()
 export class UserRepository implements IUserRepository {
   ormRepo: Repository<User>;
 
-  constructor() {
-    this.ormRepo = getRepository(User);
+  constructor(@inject('DataSource') dataSource: DataSource) {
+    this.ormRepo = dataSource.getRepository(User);
   }
 
   async findAll(): Promise<User[]> {

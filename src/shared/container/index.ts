@@ -21,28 +21,40 @@ import { IHashProvider } from '@shared/providers/hash/IHashProvider';
 import { RedisProvider } from '@shared/providers/redis/RedisProvider';
 import { IRedisProvider } from '@shared/providers/redis/IRedisProvider';
 
-container.registerSingleton<IRedisProvider>('IRedisProvider', RedisProvider);
+import AppDataSource from '../providers/typeorm/index';
+import { DataSource } from 'typeorm';
 
-container.registerSingleton<IHashProvider>('HashProvider', HashProvider);
+export async function registerSharedProviders() {
+  const dataSource: DataSource = await AppDataSource();
 
-container.registerSingleton<IMailProvider>(
-  'MailProvider',
-  EtherealMailProvider,
-);
+  container.registerInstance<DataSource>('DataSource', dataSource);
 
-container.registerSingleton<IProductRepository>(
-  'ProductRepository',
-  ProductRepository,
-);
+  container.registerSingleton<IRedisProvider>('IRedisProvider', RedisProvider);
 
-container.registerSingleton<IStorageProvider>(
-  'StorageProvider',
-  DiskStorageProvider,
-);
+  container.registerSingleton<IHashProvider>('HashProvider', HashProvider);
 
-container.registerSingleton<IUserRepository>('UserRepository', UserRepository);
+  container.registerSingleton<IMailProvider>(
+    'MailProvider',
+    EtherealMailProvider,
+  );
 
-container.registerSingleton<IUserTokensRepository>(
-  'UserTokensRepository',
-  UserTokensRepository,
-);
+  container.registerSingleton<IProductRepository>(
+    'ProductRepository',
+    ProductRepository,
+  );
+
+  container.registerSingleton<IStorageProvider>(
+    'StorageProvider',
+    DiskStorageProvider,
+  );
+
+  container.registerSingleton<IUserRepository>(
+    'UserRepository',
+    UserRepository,
+  );
+
+  container.registerSingleton<IUserTokensRepository>(
+    'UserTokensRepository',
+    UserTokensRepository,
+  );
+}
